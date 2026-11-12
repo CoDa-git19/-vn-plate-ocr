@@ -1,0 +1,23 @@
+# Data & experiment outputs
+datasets/
+runs/
+wandb/
+
+# Model weights
+*.pt
+*.onnx
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# Environments
+.venv/
+.env
+
+# Gradio
+.gradio/
+flagged/
