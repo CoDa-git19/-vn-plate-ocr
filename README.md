@@ -45,8 +45,11 @@ pip install -r requirements-dev.txt
 ## Usage
 
 ```bash
-# 1. Data
-python scripts/prepare_data.py --src datasets/raw --out datasets/plates
+# 1. Data: download from Roboflow (needs ROBOFLOW_API_KEY), validate, plot docs/*.png
+export ROBOFLOW_API_KEY=...      # Colab: os.environ["ROBOFLOW_API_KEY"] = userdata.get("ROBOFLOW_API_KEY")
+python scripts/prepare_data.py --roboflow
+#    merge several datasets (MD5 de-dup) into datasets/merged
+python scripts/prepare_data.py datasets/a datasets/b --out datasets/merged
 
 # 2. Train detector
 python scripts/train.py --data datasets/plates/data.yaml --epochs 50 --wandb --export-onnx
