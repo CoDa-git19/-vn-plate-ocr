@@ -21,3 +21,5 @@ __pycache__/
 # Gradio
 .gradio/
 flagged/
+data/manual_test/
+docs/*.mp4
