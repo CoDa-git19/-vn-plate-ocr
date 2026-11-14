@@ -57,7 +57,7 @@ def cer(pred: str, gt: str) -> float:
 
 
 def exact_match(pred: str, gt: str) -> bool:
-    """Exact match after normalization (see ``ocr.normalize_plate_text``)."""
+    """Exact match after normalization (see ``ocr.normalize_vn_plate``)."""
     # TODO
     raise NotImplementedError
 
