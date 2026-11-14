@@ -97,9 +97,39 @@ class PlateDetector:
 
         Returns:
             List of ``(track_id, detection)``. Untracked boxes are dropped.
+            Every class is kept (all classes of the plate model are plates).
+
+        Always pass ``persist=True`` for video and call :meth:`reset_tracker` between videos.
+        Ultralytics binds the ``persist`` value of the FIRST ``track()`` call into its tracker
+        callbacks; a first call with ``persist=False`` makes it rebuild the tracker on every
+        later frame, so IDs restart at 1 each frame and follow detection order.
         """
-        # TODO: self.model.track(frame, persist=persist, tracker="bytetrack.yaml", ...)
-        raise NotImplementedError
+        if frame is None or frame.size == 0:
+            return []
+        results = self.model.track(
+            frame, persist=persist, tracker="bytetrack.yaml", conf=self.conf_thres, iou=self.iou_thres,
+            imgsz=self.imgsz, device=self.device, verbose=False,
+        )
+        boxes = results[0].boxes if results else None
+        if boxes is None or boxes.id is None or len(boxes) == 0:
+            return []
+
+        h, w = frame.shape[:2]
+        out = []
+        for (x1, y1, x2, y2), conf, cls, tid in zip(
+            boxes.xyxy.cpu().numpy(), boxes.conf.cpu().numpy(), boxes.cls.cpu().numpy().astype(int),
+            boxes.id.cpu().numpy().astype(int), strict=True,
+        ):
+            box = _clip_box((round(x1), round(y1), round(x2), round(y2)), w, h)
+            if box is not None:
+                out.append((int(tid), Detection(box=box, conf=float(conf), cls=int(cls))))
+        return out
+
+
+    def reset_tracker(self) -> None:
+        """Forget all tracks (call before a new video); IDs restart at 1."""
+        for tracker in getattr(getattr(self.model, "predictor", None), "trackers", None) or []:
+            tracker.reset()
 
 
 _default_detector: PlateDetector | None = None

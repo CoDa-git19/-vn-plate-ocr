@@ -2,6 +2,7 @@
 # PyTorch is pulled in by ultralytics/easyocr; for CUDA install torch first:
 #   https://pytorch.org/get-started/locally/
 ultralytics>=8.3.40
+lap>=0.5.12             # ByteTrack (model.track) - otherwise Ultralytics pip-installs it at runtime
 easyocr>=1.7.2
 gradio>=5.9.1
 opencv-python-headless>=4.10.0.84

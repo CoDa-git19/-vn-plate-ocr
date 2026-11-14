@@ -13,10 +13,10 @@ import numpy as np
 import pytest
 
 import src.ocr as ocr
-from src.evaluate import cer, exact_match, iou
+from src.evaluate import cer, compact, exact_match, iou
 from src.ocr import clean_text, merge_lines, normalize_vn_plate, preprocess, read_plate
 from src.rectify import order_points, rectify_plate
-from src.video_pipeline import PlateVoter
+from src.video_pipeline import VideoPlateOCR, weighted_vote
 
 TODO = pytest.mark.xfail(reason="skeleton not implemented yet", raises=NotImplementedError, strict=False)
 
@@ -275,13 +275,35 @@ def test_iou() -> None:
 
 
 # --- video voting ----------------------------------------------------------
-@TODO
-def test_voter_majority() -> None:
-    voter = PlateVoter(min_readings=1, min_conf=0.0)
-    for text, conf in [("51A12345", 0.9), ("51A12845", 0.5), ("51A12345", 0.8)]:
-        voter.add(1, text, conf)
-    text, _ = voter.vote(1)
-    assert text == "51A12345"
+def test_vote_weighted_majority() -> None:
+    v = weighted_vote([("51A-12345", 0.9), ("51A-12845", 0.5), ("51A12345", 0.8)])
+    assert compact(v.text) == "51A12345" and v.n_votes == 2
+    assert v.share == pytest.approx(1.7 / 2.2)
+
+
+def test_vote_is_weighted_not_counted() -> None:
+    # two weak readings lose to one strong one
+    v = weighted_vote([("51A-12845", 0.3), ("51A-12845", 0.3), ("51A-12345", 0.9)])
+    assert v.text == "51A-12345"
+
+
+def test_vote_prefers_vn_format() -> None:
+    # the invalid string has more weight but a valid VN plate exists -> valid wins
+    v = weighted_vote([("51A1234567", 0.9), ("51A1234567", 0.9), ("51A-12345", 0.4)])
+    assert v.text == "51A-12345" and v.valid
+    # no valid candidate at all -> plain weighted majority
+    assert weighted_vote([("ABC", 0.9), ("XYZ", 0.2)]).text == "ABC"
+
+
+def test_vote_tie_breaks_on_mean_conf() -> None:
+    v = weighted_vote([("51A-11111", 0.4), ("51A-11111", 0.4), ("51A-11111", 0.4), ("51A-22222", 0.6),
+                       ("51A-22222", 0.6)])
+    assert v.text == "51A-22222"  # same weight (1.2), higher mean (0.6 > 0.4)
+
+
+def test_vote_empty() -> None:
+    assert weighted_vote([]) is None
+    assert weighted_vote([("", 0.9), ("--", 0.5)]) is None
 
 
 # --- pipeline (fake detector + fake OCR reader) ----------------------------
@@ -504,3 +526,97 @@ def test_save_failures(tmp_path) -> None:
     out = tmp_path / "fail.png"
     assert ev.save_failures(rows, out, blur=True) == 3
     assert out.stat().st_size > 0
+
+
+# --- video pipeline (fake tracker + fake OCR, synthetic video) ---------------
+class _FakeTracker:
+    """Track 1: big box on every frame; track 2: small box (area 400) on every frame."""
+
+    def __init__(self) -> None:
+        self.persist_flags: list[bool] = []
+        self.resets = 0
+
+    def reset_tracker(self) -> None:
+        self.resets += 1
+
+    def track(self, frame, persist=True):
+        self.persist_flags.append(persist)
+        return [(1, Detection((20, 20, 120, 60), 0.9)), (2, Detection((200, 100, 220, 120), 0.8))]
+
+
+class _SequenceReader:
+    """Returns the next reading of ``seq`` for each ORIGINAL-crop pass; pre-processed pass reads nothing."""
+
+    def __init__(self, seq: list[tuple[str, float]]) -> None:
+        self.seq, self.i = seq, 0
+
+    def readtext(self, img, **kwargs):
+        if img.ndim == 2:
+            return []
+        text, conf = self.seq[min(self.i, len(self.seq) - 1)]
+        self.i += 1
+        return [(_BOX, text, conf)]
+
+
+def _write_video(path, n_frames: int = 12, size=(320, 160)) -> None:
+    w = cv2.VideoWriter(str(path), cv2.VideoWriter_fourcc(*"mp4v"), 10, size)
+    assert w.isOpened()
+    for i in range(n_frames):
+        w.write(np.full((size[1], size[0], 3), 20 * i % 255, np.uint8))
+    w.release()
+
+
+def test_should_ocr_needs_all_three_conditions() -> None:
+    vp = VideoPlateOCR(ocr_every_n=3, min_votes=2, min_box_area=1500, detector=_FakeTracker())
+    big, small = (0, 0, 100, 40), (0, 0, 30, 30)
+    assert vp.should_ocr(3, 1, big)
+    assert not vp.should_ocr(4, 1, big)        # wrong frame
+    assert not vp.should_ocr(3, 1, small)      # area 900 <= 1500
+    vp.votes[1] = [("51F-12345", 0.9), ("51F-12345", 0.8)]
+    assert not vp.should_ocr(3, 1, big)        # already has min_votes
+
+
+def test_process_video_counts_and_accuracy(monkeypatch, tmp_path) -> None:
+    video, out = tmp_path / "in.mp4", tmp_path / "out.mp4"
+    _write_video(video, n_frames=12)
+    # 3 OCR calls on track 1 (frames 0, 3, 6): one bad reading, two good ones
+    monkeypatch.setattr(ocr, "_reader", _SequenceReader([("51F-12845", 0.95), ("51F-12345", 0.6),
+                                                         ("51F 123.45", 0.7)]))
+    tracker = _FakeTracker()
+    vp = VideoPlateOCR(ocr_every_n=3, min_votes=3, min_box_area=1500, detector=tracker)
+
+    res = vp.process_video(video, out, gt="51F-12345")
+
+    assert res["total_frames"] == 12
+    assert res["unique_tracks"] == 2
+    assert res["ocr_calls_made"] == 3                      # frames 0, 3, 6 -> then min_votes reached
+    assert res["ocr_calls_saved"] == 12 * 2 - 3            # 24 tracked boxes
+    assert res["plates_read"] == 1 and res["plates"] == ["51F-12345"]
+    assert res["single_frame_accuracy"] == pytest.approx(2 / 3, abs=1e-3)
+    assert res["voted_accuracy"] == 1.0
+    assert res["tracks"][2]["n_readings"] == 0            # small box never OCR'd
+    assert tracker.resets == 1 and all(tracker.persist_flags)  # reset once, then always persist
+    assert res["processing_fps"] > 0
+    cap = cv2.VideoCapture(str(out))
+    assert int(cap.get(cv2.CAP_PROP_FRAME_COUNT)) == 12
+    cap.release()
+
+
+def test_process_video_max_frames_and_no_output(monkeypatch, tmp_path) -> None:
+    video = tmp_path / "in.mp4"
+    _write_video(video, n_frames=12)
+    monkeypatch.setattr(ocr, "_reader", _SequenceReader([("51F-12345", 0.9)]))
+    res = VideoPlateOCR(detector=_FakeTracker()).process_video(video, None, max_frames=4)
+    assert res["total_frames"] == 4 and res["ocr_calls_made"] == 2  # frames 0 and 3
+    assert "voted_accuracy" not in res
+
+
+def test_draw_colors(monkeypatch) -> None:
+    vp = VideoPlateOCR(min_votes=2, detector=_FakeTracker())
+    vp.votes[1] = [("51F-12345", 0.9), ("51F-12345", 0.9)]   # confirmed
+    vp.votes[2] = [("51F-99999", 0.9)]                       # tentative
+    frame = np.zeros((300, 400, 3), np.uint8)
+    out = vp.draw(frame, [(1, Detection((50, 100, 150, 140), 0.9)), (2, Detection((250, 150, 350, 190), 0.9))])
+    from src.video_pipeline import COLOR_CONFIRMED, COLOR_TENTATIVE
+    assert tuple(out[120, 50]) == COLOR_CONFIRMED
+    assert tuple(out[170, 350]) == COLOR_TENTATIVE
