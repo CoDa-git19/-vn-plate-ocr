@@ -32,6 +32,7 @@ import numpy as np
 
 from src.detect import Detection, PlateDetector, pad_box
 from src.ocr import get_reader, normalize_vn_plate, read_plate
+from src.rectify import rectify_plate
 
 DEFAULT_WEIGHTS = Path("models/best.pt")
 CROP_PAD = 0.05  # 5 % of the box size on every side
@@ -107,9 +108,13 @@ class PlateOCRPipeline:
 
     # ------------------------------------------------------------------ #
     def rectify(self, crop: np.ndarray) -> tuple[np.ndarray, bool]:
-        """Placeholder for ``src.rectify.rectify_plate`` -> ``(crop, rectified)``."""
-        # TODO: once src/rectify.py is implemented:
-        #   if self.use_rectify: return rectify_plate(crop)
+        """Perspective-correct the crop (between crop and OCR preprocess) -> ``(crop, rectified)``.
+
+        Only when ``use_rectify``; ``rectify_plate`` itself falls back to the
+        original crop (``rectified=False``) when the correction is unreliable.
+        """
+        if self.use_rectify:
+            return rectify_plate(crop)
         return crop, False
 
     def recognize_crop(self, crop: np.ndarray) -> dict[str, Any]:

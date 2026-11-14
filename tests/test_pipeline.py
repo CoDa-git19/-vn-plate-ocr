@@ -175,19 +175,90 @@ def test_read_plate_empty(monkeypatch) -> None:
 
 
 # --- rectify ---------------------------------------------------------------
-@TODO
 def test_order_points() -> None:
     pts = np.array([[10, 10], [0, 10], [0, 0], [10, 0]], dtype=np.float32)
     expected = np.array([[0, 0], [10, 0], [10, 10], [0, 10]], dtype=np.float32)
     np.testing.assert_array_equal(order_points(pts), expected)
 
 
-@TODO
+def test_order_points_tilted() -> None:
+    # rectangle rotated ~10 deg clockwise, corners shuffled
+    tl, tr, br, bl = [20, 10], [120, 28], [113, 68], [13, 50]
+    np.testing.assert_array_equal(order_points(np.array([br, tl, bl, tr])), np.array([tl, tr, br, bl], np.float32))
+
+
 def test_rectify_fallback_on_blank_crop() -> None:
     crop = np.zeros((40, 120, 3), dtype=np.uint8)
     warped, ok = rectify_plate(crop)
     assert ok is False
-    assert warped.shape == crop.shape
+    assert warped is crop
+
+
+def _synthetic_plate(angle: float, size: tuple[int, int] = (240, 52), canvas: tuple[int, int] = (270, 115),
+                     ) -> np.ndarray:
+    """White plate with a black border and text, rotated by ``angle`` on a dark canvas (BGR)."""
+    pw, ph = size
+    cw, ch = canvas
+    img = np.full((ch, cw, 3), 40, np.uint8)
+    x0, y0 = (cw - pw) // 2, (ch - ph) // 2
+    cv2.rectangle(img, (x0, y0), (x0 + pw, y0 + ph), (255, 255, 255), cv2.FILLED)
+    cv2.rectangle(img, (x0, y0), (x0 + pw, y0 + ph), (0, 0, 0), 3)
+    cv2.putText(img, "51F12345", (x0 + 12, y0 + ph - 12), cv2.FONT_HERSHEY_SIMPLEX, 1.1, (0, 0, 0), 3)
+    m = cv2.getRotationMatrix2D((cw / 2, ch / 2), angle, 1.0)
+    return cv2.warpAffine(img, m, (cw, ch), borderValue=(40, 40, 40))
+
+
+def test_rectify_straightens_tilted_plate() -> None:
+    crop = _synthetic_plate(12)
+    warped, ok = rectify_plate(crop)
+    assert ok is True
+    h, w = warped.shape[:2]
+    # back to ~plate size: the contour follows the inner or outer edge of the 3 px border
+    assert 230 <= w <= 250 and 45 <= h <= 60
+    assert 4.0 <= w / h <= 5.5
+
+
+def test_rectify_skips_straight_plate() -> None:
+    crop = _synthetic_plate(2)
+    warped, ok = rectify_plate(crop)
+    assert ok is False and warped is crop
+
+
+def test_rectify_rejects_small_contour() -> None:
+    crop = _synthetic_plate(12, size=(100, 22), canvas=(300, 140))  # plate ~5 % of crop
+    warped, ok = rectify_plate(crop)
+    assert ok is False and warped is crop
+
+
+def test_rectify_rejects_bad_aspect_for_layout() -> None:
+    crop = _synthetic_plate(12)  # ~4.6:1, fine as one line ...
+    assert rectify_plate(crop, layout="one_line")[1] is True
+    warped, ok = rectify_plate(crop, layout="two_line")  # ... but outside [0.8, 2.0]
+    assert ok is False and warped is crop
+
+
+def test_pipeline_uses_rectify_only_when_enabled(monkeypatch) -> None:
+    import src.pipeline as pipeline_mod
+
+    calls = []
+
+    def fake_rectify(crop):
+        calls.append(crop.shape)
+        return np.zeros((52, 240, 3), np.uint8), True
+
+    monkeypatch.setattr(pipeline_mod, "rectify_plate", fake_rectify)
+    reader = _RecordingReader("51F12345")
+    monkeypatch.setattr(ocr, "_reader", reader)
+    det = _FakeDetector([Detection((100, 50, 200, 90), 0.9)])
+    image = np.zeros((480, 640, 3), np.uint8)
+
+    off = PlateOCRPipeline(detector=det).process(image)
+    assert calls == [] and off[0]["rectified"] is False
+
+    on = PlateOCRPipeline(detector=det, use_rectify=True).process(image)
+    assert calls == [(44, 110, 3)]          # rectify got the padded crop
+    assert on[0]["rectified"] is True
+    assert reader.shapes[-2] == (52, 240, 3)  # OCR (original pass) got the rectified crop
 
 
 # --- evaluate --------------------------------------------------------------
