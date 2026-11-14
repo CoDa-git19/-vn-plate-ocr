@@ -26,3 +26,4 @@ docs/*.mp4
 data/manual_test/
 data/manual_test.csv
 *.mp4
+hf-static/
