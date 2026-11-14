@@ -4,7 +4,7 @@
 ultralytics>=8.3.40
 lap>=0.5.12             # ByteTrack (model.track) - otherwise Ultralytics pip-installs it at runtime
 easyocr>=1.7.2
-gradio>=5.9.1
+gradio>=5.50.0,<6         # 5.9.x crashes on startup with pydantic>=2.11 (gr.Image/gr.Video API schema)
 opencv-python-headless>=4.10.0.84
 numpy>=1.26.4
 pillow>=10.4.0
