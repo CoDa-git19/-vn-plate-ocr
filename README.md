@@ -20,7 +20,7 @@ There is no live demo: Hugging Face no longer runs Gradio Spaces on free account
 
 ## Overview
 
-Reading a plate in a street photo is a small-object problem: the plate often covers less than 1% of the frame, and an OCR model run on the whole image also reads shop signs and stickers. VN-PlateOCR works in two stages: YOLOv8n locates each plate, then the padded crop is optionally rectified, preprocessed and read by EasyOCR, and the result is corrected and validated against Vietnamese plate formats; on video, ByteTrack tracking and multi-frame voting give one reading per vehicle. The detector reaches **0.981 mAP50** on the dataset test split, but end-to-end exact match on a hand-labelled set of 45 real-world photos is only **15.6%**: OCR, not detection, is the weak and slow part (87% of CPU time).
+Reading a plate in a street photo is a small-object problem: the plate often covers less than 1% of the frame, and an OCR model run on the whole image also reads shop signs and stickers. VN-PlateOCR works in two stages: YOLOv8n locates each plate, then the padded crop is optionally rectified, preprocessed and read by EasyOCR, and the result is corrected and validated against Vietnamese plate formats; on video, ByteTrack tracking and multi-frame voting give one reading per vehicle. The detector reaches **0.981 mAP50** on the dataset test split, but end-to-end exact match on a hand-labelled set of 45 real-world photos is only **15.6%**: OCR, not detection, is the weak and slow part (88% of CPU time).
 
 ## Architecture
 
@@ -48,7 +48,7 @@ Post-processing restricts the series position to the 20 letters used on Vietname
 
 | Exact Match | CER | Detection Recall | End-to-end latency p50 |
 |---:|---:|---:|---:|
-| 15.6% | 0.224 | 100.0% | 1400 ms |
+| 15.6% | 0.224 | 100.0% | 1630 ms |
 
 Exact Match compares the predicted and true plate after removing `-` and `.`; CER is the Levenshtein distance divided by the plate length; Detection Recall is the share of images with at least one detected plate. When several plates are detected, the prediction closest to the ground truth (lowest CER) is scored.
 
@@ -94,34 +94,34 @@ Tracking and voting skip about 95% of the OCR calls that reading every box in ev
 
 ## Latency Benchmark
 
-Detector only, CPU (Intel i5-1135G7), 30 timed calls after 5 warm-up calls, full `detect()` including letterbox and NMS:
+Detector only, CPU (Intel i5-1135G7), 100 timed calls over 30 images after 5 warm-up calls, full `detect()` including letterbox and NMS:
 
 | Configuration | median ms | p95 ms | speedup vs PyTorch CPU |
 |---|---:|---:|---:|
-| PyTorch CPU | 196.3 | 455.7 | 1.00x |
-| ONNX Runtime CPU (opset 12, static 640x640) | 231.5 | 574.1 | 0.85x |
+| PyTorch CPU | 265.6 | 651.6 | 1.00x |
+| ONNX Runtime CPU (opset 12, static 640x640) | 199.5 | 282.5 | 1.33x |
 
-ONNX Runtime is slower here because the static export always processes a 640x640 input, while PyTorch letterboxes to the smallest multiple of 32 (for example 640x480, 25% fewer pixels). On identical input both backends give the same boxes (< 1 px difference on 10/10 images).
+ONNX Runtime has a much tighter tail (p95 282 vs 652 ms) even though the static export always processes a 640x640 input, while PyTorch letterboxes to the smallest multiple of 32 (for example 640x480, 25% fewer pixels). Across four runs on this laptop the ONNX/PyTorch speedup ranged from 0.85x to 1.33x (thermal throttling and background load), so the median difference is within run-to-run noise; the conclusion that OCR is the bottleneck does not change. On identical input both backends give the same boxes (< 1 px difference on 10/10 images).
 
 Per stage, full pipeline (30 images, 47 plates):
 
 | Stage | median ms | p95 ms | share of total time |
 |---|---:|---:|---:|
-| detect | 137.2 | 187.9 | 13% |
-| rectify | 1.5 | 4.4 | 0% |
-| ocr | 845.2 | 1755.3 | 87% |
-| total | 982.7 | 1878.0 | 100% |
+| detect | 179.1 | 328.4 | 12% |
+| rectify | 1.9 | 22.1 | 0% |
+| ocr | 1086.0 | 2756.0 | 88% |
+| total | 1312.8 | 2971.6 | 100% |
 
-The bottleneck is OCR: speeding up the detector, with ONNX or otherwise, can save at most 13% of the time.
+The bottleneck is OCR: speeding up the detector, with ONNX or otherwise, can save at most 12% of the time.
 
 ## Model Selection
 
 | Weights | Params | mAP50 (test split) | Exact Match (manual set) | Detect p50 (ms) | End-to-end p50 (ms) |
 |---|---:|---:|---:|---:|---:|
-| YOLOv8n | 3.1M | 0.981 | 15.6% | 206 | 1400 |
-| YOLOv8s | 11.1M | 0.973 | 17.8% | 654 | 2295 |
+| YOLOv8n | 3.1M | 0.981 | 15.6% | 240 | 1630 |
+| YOLOv8s | 11.1M | 0.973 | 17.8% | 604 | 2022 |
 
-YOLOv8n is the default: equal or better detection (mAP50 0.981 vs 0.973) with 3.6x fewer parameters and about 3x faster detection on CPU. The +2.2 point Exact Match of v8s is one image out of 45, within noise.
+YOLOv8n is the default: equal or better detection (mAP50 0.981 vs 0.973) with 3.6x fewer parameters and about 2.5x faster detection on CPU. The +2.2 point Exact Match of v8s is one image out of 45, within noise.
 
 ## Dataset
 
@@ -194,7 +194,7 @@ cp models/best_yolov8n.pt models/best.pt
 
 38 of the 45 manual-test images are not an exact match. The errors fall into three overlapping groups:
 
-1. **Near misses (18 of 38):** one character wrong, typically a confusion the rules do not cover, such as the series letter `A` read as `4` (`29A-12345` -> `294-12345`).
+1. **Near misses (18 of 38):** one character wrong, typically a confusion the rules do not cover, such as the series letter `A` read as `4` (`29A-12***` -> `294-12***`; last characters masked).
 2. **Two-line plates (14 of 38):** a line is dropped, or the two lines are merged with extra characters, which also changes the plate length (15 of 38 errors have the wrong number of characters).
 3. **Small, blurry or low-light plates (17 of 38):** EasyOCR returns fragments; the `small` slice has 0% exact match.
 
@@ -203,10 +203,10 @@ cp models/best_yolov8n.pt models/best.pt
 ## Limitations & Future Work
 
 - **Small test set:** 45 images, so one image moves Exact Match by 2.2 points and some slices have fewer than 5 samples.
-- **OCR is not fine-tuned:** EasyOCR's generic English model is the main source of error and 87% of latency. Next steps: fine-tune a recognizer on Vietnamese plate crops and read each crop once instead of twice.
+- **OCR is not fine-tuned:** EasyOCR's generic English model is the main source of error and 88% of latency. Next steps: fine-tune a recognizer on Vietnamese plate crops and read each crop once instead of twice.
 - **Night conditions:** only 3 low-light images were tested; glare and headlights are not handled.
 - **Video:** accuracy is 0% on two of three stock clips because plates are small and motion-blurred; voting cannot fix readings that are all wrong.
-- **No INT8 quantization:** the ONNX export is FP32 with a static 640x640 input, which made it slower than PyTorch on CPU.
+- **No INT8 quantization:** the ONNX export is FP32 with a static 640x640 input, and its median speedup over PyTorch on CPU is small and unstable (0.85x to 1.33x across runs).
 - **Privacy:** the manual test set contains real license plates and is not published. `src/evaluate.py --blur-failures` masks the last three characters in the failure figure; do not publish recognized plates of identifiable vehicles without consent.
 
 ## Project Structure
