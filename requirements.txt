@@ -10,6 +10,8 @@ numpy>=1.26.4
 pillow>=10.4.0
 python-Levenshtein>=0.26.1
 onnxruntime>=1.19.2
+onnx>=1.12.0,<1.18      # ONNX export (scripts/benchmark.py); newer onnx pulls numpy 2 + protobuf 6+
+onnxslim>=0.1.31        # export(simplify=True)
 wandb>=0.18.7
 # data preparation (scripts/prepare_data.py)
 roboflow>=1.7.3
