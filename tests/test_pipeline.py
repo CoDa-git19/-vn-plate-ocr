@@ -13,7 +13,7 @@ import numpy as np
 import pytest
 
 import src.ocr as ocr
-from src.evaluate import cer, iou
+from src.evaluate import cer, exact_match, iou
 from src.ocr import clean_text, merge_lines, normalize_vn_plate, preprocess, read_plate
 from src.rectify import order_points, rectify_plate
 from src.video_pipeline import PlateVoter
@@ -262,13 +262,13 @@ def test_pipeline_uses_rectify_only_when_enabled(monkeypatch) -> None:
 
 
 # --- evaluate --------------------------------------------------------------
-@TODO
 def test_cer() -> None:
     assert cer("51A12345", "51A12345") == 0.0
     assert cer("51A12346", "51A12345") == pytest.approx(1 / 8)
+    assert cer("51f-123.45", "51F-12345") == 0.0  # separators and case ignored
+    assert cer("", "51F-12345") == 1.0             # nothing detected
 
 
-@TODO
 def test_iou() -> None:
     assert iou((0, 0, 10, 10), (0, 0, 10, 10)) == pytest.approx(1.0)
     assert iou((0, 0, 10, 10), (20, 20, 30, 30)) == 0.0
@@ -286,7 +286,7 @@ def test_voter_majority() -> None:
 
 # --- pipeline (fake detector + fake OCR reader) ----------------------------
 from src.detect import Detection, crop_box, pad_box  # noqa: E402
-from src.pipeline import COLOR_INVALID, COLOR_VALID, PlateOCRPipeline, draw_results  # noqa: E402
+from src.pipeline import COLOR_INVALID, COLOR_VALID, PlateOCRPipeline, draw_results, load_image  # noqa: E402
 
 
 class _FakeDetector:
@@ -376,3 +376,131 @@ def test_draw_results_colors() -> None:
 def test_pipeline_end_to_end() -> None:
     results = PlateOCRPipeline("models/best.pt").process(np.zeros((480, 640, 3), dtype=np.uint8))
     assert results == []
+
+
+# --- evaluate harness (fake detector + fake OCR) ----------------------------
+import src.evaluate as ev  # noqa: E402
+
+
+def test_exact_match_ignores_separators() -> None:
+    assert exact_match("51f-123.45", "51F-12345")
+    assert exact_match("59-H1 234.56", "59H1-23456")
+    assert not exact_match("51F-12346", "51F-12345")
+    assert not exact_match("", "")
+
+
+def test_mask_last() -> None:
+    assert ev.mask_last("51F-12345") == "51F-12***"
+    assert ev.mask_last("59H1-234.56") == "59H1-23*.**"
+    assert ev.mask_last("AB") == "**"
+
+
+class _BySizeReader:
+    """Reads ``by_width[w]`` on the original (3-channel) crop, ``pre`` on the pre-processed one."""
+
+    def __init__(self, by_width: dict[int, tuple[str, float]], pre: tuple[str, float] | None = None) -> None:
+        self.by_width, self.pre = by_width, pre
+
+    def readtext(self, img, **kwargs):
+        if img.ndim == 2:
+            return [(_BOX, *self.pre)] if self.pre else []
+        hit = self.by_width.get(img.shape[1])
+        return [(_BOX, *hit)] if hit else []
+
+
+def _gt_image(tmp_path, tags=()) -> ev.GTItem:
+    path = tmp_path / "img.png"
+    cv2.imwrite(str(path), np.zeros((480, 640, 3), np.uint8))
+    return ev.GTItem(path, path.as_posix(), "51F-12345", list(tags))
+
+
+def test_evaluate_picks_closest_plate_not_first(monkeypatch, tmp_path) -> None:
+    # det 1 (more confident, first) reads garbage; det 2 reads the GT
+    monkeypatch.setattr(ocr, "_reader", _BySizeReader({110: ("99Z-99999", 0.95), 44: ("51F-123.45", 0.6)}))
+    dets = [Detection((100, 50, 200, 90), 0.9), Detection((300, 300, 340, 320), 0.5)]
+    pipe = PlateOCRPipeline(detector=_FakeDetector(dets), use_rectify=True)
+
+    row = ev.evaluate_image(pipe, _gt_image(tmp_path))
+
+    assert row["n_detections"] == 2
+    for cfg in ev.CONFIGS:
+        assert row["predictions"][cfg]["exact"], cfg
+        assert row["predictions"][cfg]["bbox"] == [300, 300, 340, 320]
+    assert row["predictions"]["baseline"]["text"] == "51F-123.45"  # no rules: raw cleaned text
+    assert row["predictions"][ev.FULL]["text"] == "51F-12345"
+
+
+def test_evaluate_configs_are_cumulative_and_full_matches_pipeline(monkeypatch, tmp_path) -> None:
+    # raw crop -> "51F-1234S" (conf .5); preprocessed -> "51F 1234S" (conf .9)
+    monkeypatch.setattr(ocr, "_reader", _BySizeReader({110: ("51F-I234S", 0.5)}, pre=("51F 1234S", 0.9)))
+    det = _FakeDetector([Detection((100, 50, 200, 90), 0.9)])
+    pipe = PlateOCRPipeline(detector=det, use_rectify=True)
+    item = _gt_image(tmp_path)
+
+    p = ev.evaluate_image(pipe, item)["predictions"]
+    assert p["baseline"]["text"] == "51F-I234S"
+    assert p["+ preprocess"]["text"] == "51F1234S"   # more confident pre-processed reading
+    assert p["+ rectify"]["text"] == "51F1234S"      # blank crop: rectify falls back
+    assert p["+ rules"]["text"] == "51F-12345" and p["+ rules"]["exact"]
+    # config 4 == what the real pipeline returns
+    assert pipe.process(load_image(item.image_path))[0]["plate_text"] == p["+ rules"]["text"]
+
+
+def test_evaluate_no_detection(monkeypatch, tmp_path) -> None:
+    monkeypatch.setattr(ocr, "_reader", _BySizeReader({}))
+    pipe = PlateOCRPipeline(detector=_FakeDetector([]))
+    row = ev.evaluate_image(pipe, _gt_image(tmp_path))
+    assert row["n_detections"] == 0
+    m = ev.summarize([row], ev.FULL)
+    assert m == {"n": 1, "exact_match": 0.0, "cer": 1.0, "det_recall": 0.0}
+
+
+def _row(path: str, exact: bool, cer_: float = 0.0, n_det: int = 1) -> dict:
+    return {"image_path": path, "n_detections": n_det,
+            "predictions": {c: {"exact": exact, "cer": cer_} for c in ev.CONFIGS}}
+
+
+def test_slice_metrics_clean_and_multi_tag() -> None:
+    items = [ev.GTItem(Path(p), p, "51F12345", t) for p, t in
+             [("a", []), ("b", ["two_line", "small"]), ("c", ["small"]), ("d", ["custom"])]]
+    rows = [_row("a", True), _row("b", False, 0.5), _row("c", True), _row("d", True)]
+    s = ev.slice_metrics(rows, items)
+    assert s["clean"]["n"] == 1 and s["clean"]["exact_match"] == 1.0
+    assert s["small"]["n"] == 2 and s["small"]["exact_match"] == 0.5     # b counts in both slices
+    assert s["two_line"]["n"] == 1 and s["angled"]["n"] == 0
+    assert s["custom"]["n"] == 1                                         # unknown tags still reported
+    table = ev.slice_table(s)
+    assert "WARNING" in table and "angled (n=0)" in table
+
+
+def test_ablation_table_delta() -> None:
+    metrics = {c: {"n": 10, "exact_match": em, "cer": 0.1, "det_recall": 0.9}
+               for c, em in zip(ev.CONFIGS, (0.2, 0.3, 0.3, 0.55), strict=True)}
+    table = ev.ablation_table(metrics)
+    assert "| 1. baseline | 20.0% | 0.100 | 90.0% | - |" in table
+    assert "+10.0 pts" in table and "+0.0 pts" in table and "+25.0 pts" in table
+
+
+def test_load_ground_truth_empty_tags(tmp_path) -> None:
+    img = tmp_path / "x.jpg"
+    cv2.imwrite(str(img), np.zeros((10, 10, 3), np.uint8))
+    csv_path = tmp_path / "gt.csv"
+    lines = ["image_path,ground_truth_plate,tags",
+             f"{img.as_posix()},51F-12345,",
+             f"{img.as_posix()},29A-12345,two_line;small",
+             "missing.jpg,30A-11111,"]
+    csv_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    items = ev.load_ground_truth(csv_path)
+    assert [it.slices for it in items] == [["clean"], ["two_line", "small"]]
+
+
+def test_save_failures(tmp_path) -> None:
+    path = tmp_path / "img.png"
+    cv2.imwrite(str(path), np.full((200, 300, 3), 128, np.uint8))
+    rows = [{"image_path": path.as_posix(), "gt": "51F-12345", "tags": [],
+             "predictions": {ev.FULL: {"exact": False, "cer": c, "text": t, "bbox": b}}}
+            for c, t, b in [(1.0, "", None), (0.25, "51F-12399", [100, 80, 220, 110]),
+                            (0.1, "51F-1234", [10, 10, 60, 50])]]
+    out = tmp_path / "fail.png"
+    assert ev.save_failures(rows, out, blur=True) == 3
+    assert out.stat().st_size > 0

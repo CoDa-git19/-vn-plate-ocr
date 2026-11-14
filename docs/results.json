@@ -1,0 +1,5121 @@
+{
+  "created": "2026-11-14T17:27:16",
+  "csv": "data/manual_test.csv",
+  "n_images": 45,
+  "configs": [
+    "baseline",
+    "+ preprocess",
+    "+ rectify",
+    "+ rules"
+  ],
+  "data_yaml": null,
+  "runs": [
+    {
+      "weights": "models/best.pt",
+      "metrics": {
+        "baseline": {
+          "n": 45,
+          "exact_match": 0.06666666666666667,
+          "cer": 0.2824074074074074,
+          "det_recall": 1.0
+        },
+        "+ preprocess": {
+          "n": 45,
+          "exact_match": 0.06666666666666667,
+          "cer": 0.25454144620811286,
+          "det_recall": 1.0
+        },
+        "+ rectify": {
+          "n": 45,
+          "exact_match": 0.06666666666666667,
+          "cer": 0.24034391534391528,
+          "det_recall": 1.0
+        },
+        "+ rules": {
+          "n": 45,
+          "exact_match": 0.15555555555555556,
+          "cer": 0.22429453262786592,
+          "det_recall": 1.0
+        }
+      },
+      "slices": {
+        "two_line": {
+          "n": 15,
+          "exact_match": 0.06666666666666667,
+          "cer": 0.2794973544973545,
+          "det_recall": 1.0
+        },
+        "angled": {
+          "n": 11,
+          "exact_match": 0.18181818181818182,
+          "cer": 0.28012265512265516,
+          "det_recall": 1.0
+        },
+        "lowlight": {
+          "n": 3,
+          "exact_match": 0.3333333333333333,
+          "cer": 0.18452380952380953,
+          "det_recall": 1.0
+        },
+        "small": {
+          "n": 6,
+          "exact_match": 0.0,
+          "cer": 0.40277777777777773,
+          "det_recall": 1.0
+        },
+        "blurry": {
+          "n": 16,
+          "exact_match": 0.125,
+          "cer": 0.24479166666666666,
+          "det_recall": 1.0
+        },
+        "clean": {
+          "n": 12,
+          "exact_match": 0.25,
+          "cer": 0.12268518518518519,
+          "det_recall": 1.0
+        }
+      },
+      "latency_ms": {
+        "detect_p50": 165.86580011062324,
+        "end_to_end_p50": 1039.0120998490602
+      },
+      "rows": [
+        {
+          "image_path": "data/manual_test/images/1.jpg",
+          "gt": "60A-69696",
+          "tags": [],
+          "n_detections": 1,
+          "detect_ms": 302.01900005340576,
+          "full_ms": 1165.972099872306,
+          "predictions": {
+            "baseline": {
+              "text": "6OA.696.96",
+              "ocr_conf": 0.6468646359267808,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                236,
+                335,
+                460,
+                388
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "6OA.696.96",
+              "ocr_conf": 0.6468646359267808,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                236,
+                335,
+                460,
+                388
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "6OA.696.96",
+              "ocr_conf": 0.6468646359267808,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                236,
+                335,
+                460,
+                388
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "60A-69696",
+              "ocr_conf": 0.6468646359267808,
+              "cer": 0.0,
+              "exact": true,
+              "bbox": [
+                236,
+                335,
+                460,
+                388
+              ],
+              "plate_class": 0,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                236,
+                335,
+                460,
+                388
+              ],
+              "det_conf": 0.8772562742233276,
+              "plate_class": 0,
+              "rectified": false,
+              "full_ms": 863.9530998189002,
+              "texts": {
+                "baseline": [
+                  "6OA.696.96",
+                  0.6468646359267808
+                ],
+                "+ preprocess": [
+                  "6OA.696.96",
+                  0.6468646359267808
+                ],
+                "+ rectify": [
+                  "6OA.696.96",
+                  0.6468646359267808
+                ],
+                "+ rules": [
+                  "60A-69696",
+                  0.6468646359267808
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/2.png",
+          "gt": "29X5-55555",
+          "tags": [
+            "angled"
+          ],
+          "n_detections": 3,
+          "detect_ms": 137.38229987211525,
+          "full_ms": 1885.1488998625427,
+          "predictions": {
+            "baseline": {
+              "text": "6555194455",
+              "ocr_conf": 0.6109422356818005,
+              "cer": 0.7777777777777778,
+              "exact": false,
+              "bbox": [
+                676,
+                351,
+                777,
+                456
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "1555",
+              "ocr_conf": 0.8061786890029907,
+              "cer": 0.6666666666666666,
+              "exact": false,
+              "bbox": [
+                676,
+                351,
+                777,
+                456
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "1555",
+              "ocr_conf": 0.8061786890029907,
+              "cer": 0.6666666666666666,
+              "exact": false,
+              "bbox": [
+                676,
+                351,
+                777,
+                456
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "1555",
+              "ocr_conf": 0.8061786890029907,
+              "cer": 0.6666666666666666,
+              "exact": false,
+              "bbox": [
+                676,
+                351,
+                777,
+                456
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                294,
+                338,
+                416,
+                445
+              ],
+              "det_conf": 0.9058253765106201,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 748.5147998668253,
+              "texts": {
+                "baseline": [
+                  "29.71280.E89J",
+                  0.588660824671517
+                ],
+                "+ preprocess": [
+                  "29.71280.E89J",
+                  0.588660824671517
+                ],
+                "+ rectify": [
+                  "29.71280.E89J",
+                  0.588660824671517
+                ],
+                "+ rules": [
+                  "2971280E89J",
+                  0.588660824671517
+                ]
+              }
+            },
+            {
+              "bbox": [
+                1117,
+                409,
+                1223,
+                529
+              ],
+              "det_conf": 0.9039488434791565,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 550.1441999804229,
+              "texts": {
+                "baseline": [
+                  "999.50499A1",
+                  0.6129096900607987
+                ],
+                "+ preprocess": [
+                  "999.50499A1",
+                  0.6129096900607987
+                ],
+                "+ rectify": [
+                  "999.50499A1",
+                  0.6129096900607987
+                ],
+                "+ rules": [
+                  "99950499A1",
+                  0.6129096900607987
+                ]
+              }
+            },
+            {
+              "bbox": [
+                676,
+                351,
+                777,
+                456
+              ],
+              "det_conf": 0.901129961013794,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 449.1076001431793,
+              "texts": {
+                "baseline": [
+                  "6555194455",
+                  0.6109422356818005
+                ],
+                "+ preprocess": [
+                  "1555",
+                  0.8061786890029907
+                ],
+                "+ rectify": [
+                  "1555",
+                  0.8061786890029907
+                ],
+                "+ rules": [
+                  "1555",
+                  0.8061786890029907
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/3.jpg",
+          "gt": "76D-18759",
+          "tags": [
+            "two_line",
+            "small"
+          ],
+          "n_detections": 1,
+          "detect_ms": 167.28419996798038,
+          "full_ms": 460.49669990316033,
+          "predictions": {
+            "baseline": {
+              "text": "187.59",
+              "ocr_conf": 0.9997623527475815,
+              "cer": 0.375,
+              "exact": false,
+              "bbox": [
+                260,
+                220,
+                310,
+                255
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "187.59",
+              "ocr_conf": 0.9997623527475815,
+              "cer": 0.375,
+              "exact": false,
+              "bbox": [
+                260,
+                220,
+                310,
+                255
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "187.59",
+              "ocr_conf": 0.9997623527475815,
+              "cer": 0.375,
+              "exact": false,
+              "bbox": [
+                260,
+                220,
+                310,
+                255
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "18759",
+              "ocr_conf": 0.9997623527475815,
+              "cer": 0.375,
+              "exact": false,
+              "bbox": [
+                260,
+                220,
+                310,
+                255
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                260,
+                220,
+                310,
+                255
+              ],
+              "det_conf": 0.8668228387832642,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 293.21249993517995,
+              "texts": {
+                "baseline": [
+                  "187.59",
+                  0.9997623527475815
+                ],
+                "+ preprocess": [
+                  "187.59",
+                  0.9997623527475815
+                ],
+                "+ rectify": [
+                  "187.59",
+                  0.9997623527475815
+                ],
+                "+ rules": [
+                  "18759",
+                  0.9997623527475815
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/4.jpg",
+          "gt": "29A-12345",
+          "tags": [
+            "angled"
+          ],
+          "n_detections": 2,
+          "detect_ms": 133.2227000966668,
+          "full_ms": 666.606199927628,
+          "predictions": {
+            "baseline": {
+              "text": "294112245",
+              "ocr_conf": 0.3528407711072042,
+              "cer": 0.375,
+              "exact": false,
+              "bbox": [
+                538,
+                271,
+                607,
+                308
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "29412345",
+              "ocr_conf": 0.6578669129014593,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                538,
+                271,
+                607,
+                308
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "29412345",
+              "ocr_conf": 0.6578669129014593,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                538,
+                271,
+                607,
+                308
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "294-12345",
+              "ocr_conf": 0.6578669129014593,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                538,
+                271,
+                607,
+                308
+              ],
+              "plate_class": 0,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                538,
+                271,
+                607,
+                308
+              ],
+              "det_conf": 0.8977369666099548,
+              "plate_class": 0,
+              "rectified": false,
+              "full_ms": 320.8146998658776,
+              "texts": {
+                "baseline": [
+                  "294112245",
+                  0.3528407711072042
+                ],
+                "+ preprocess": [
+                  "29412345",
+                  0.6578669129014593
+                ],
+                "+ rectify": [
+                  "29412345",
+                  0.6578669129014593
+                ],
+                "+ rules": [
+                  "294-12345",
+                  0.6578669129014593
+                ]
+              }
+            },
+            {
+              "bbox": [
+                77,
+                198,
+                107,
+                215
+              ],
+              "det_conf": 0.8656296133995056,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 212.5687999650836,
+              "texts": {
+                "baseline": [
+                  "",
+                  0.0
+                ],
+                "+ preprocess": [
+                  "XLB-30",
+                  0.5651315610098167
+                ],
+                "+ rectify": [
+                  "XLB-30",
+                  0.5651315610098167
+                ],
+                "+ rules": [
+                  "XLB30",
+                  0.5651315610098167
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/5.jpg",
+          "gt": "30N-76789",
+          "tags": [],
+          "n_detections": 1,
+          "detect_ms": 163.32280007191002,
+          "full_ms": 724.8824001289904,
+          "predictions": {
+            "baseline": {
+              "text": "30.07-6789",
+              "ocr_conf": 0.6675113710506897,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                90,
+                201,
+                201,
+                284
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "30.07-6789",
+              "ocr_conf": 0.6675113710506897,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                90,
+                201,
+                201,
+                284
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "30.07-6789",
+              "ocr_conf": 0.6675113710506897,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                90,
+                201,
+                201,
+                284
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "30D7-6789",
+              "ocr_conf": 0.6675113710506897,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                90,
+                201,
+                201,
+                284
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                90,
+                201,
+                201,
+                284
+              ],
+              "det_conf": 0.9313527941703796,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 561.5596000570804,
+              "texts": {
+                "baseline": [
+                  "30.07-6789",
+                  0.6675113710506897
+                ],
+                "+ preprocess": [
+                  "30.07-6789",
+                  0.6675113710506897
+                ],
+                "+ rectify": [
+                  "30.07-6789",
+                  0.6675113710506897
+                ],
+                "+ rules": [
+                  "30D7-6789",
+                  0.6675113710506897
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/6.jpg",
+          "gt": "29E2-56789",
+          "tags": [
+            "small"
+          ],
+          "n_detections": 1,
+          "detect_ms": 219.43549998104572,
+          "full_ms": 615.6203001737595,
+          "predictions": {
+            "baseline": {
+              "text": "29-EZ-567.89",
+              "ocr_conf": 0.9164724468368852,
+              "cer": 0.1111111111111111,
+              "exact": false,
+              "bbox": [
+                296,
+                280,
+                345,
+                318
+              ],
+              "plate_class": 1,
+              "rectified": true
+            },
+            "+ preprocess": {
+              "text": "29-EZ-567.89",
+              "ocr_conf": 0.9164724468368852,
+              "cer": 0.1111111111111111,
+              "exact": false,
+              "bbox": [
+                296,
+                280,
+                345,
+                318
+              ],
+              "plate_class": 1,
+              "rectified": true
+            },
+            "+ rectify": {
+              "text": "29-EZ-562.89",
+              "ocr_conf": 0.8712510162770312,
+              "cer": 0.2222222222222222,
+              "exact": false,
+              "bbox": [
+                296,
+                280,
+                345,
+                318
+              ],
+              "plate_class": 1,
+              "rectified": true
+            },
+            "+ rules": {
+              "text": "29EZ-56289",
+              "ocr_conf": 0.8712510162770312,
+              "cer": 0.2222222222222222,
+              "exact": false,
+              "bbox": [
+                296,
+                280,
+                345,
+                318
+              ],
+              "plate_class": 1,
+              "rectified": true
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                296,
+                280,
+                345,
+                318
+              ],
+              "det_conf": 0.9017921090126038,
+              "plate_class": 1,
+              "rectified": true,
+              "full_ms": 396.18480019271374,
+              "texts": {
+                "baseline": [
+                  "29-EZ-567.89",
+                  0.9164724468368852
+                ],
+                "+ preprocess": [
+                  "29-EZ-567.89",
+                  0.9164724468368852
+                ],
+                "+ rectify": [
+                  "29-EZ-562.89",
+                  0.8712510162770312
+                ],
+                "+ rules": [
+                  "29EZ-56289",
+                  0.8712510162770312
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/7.jpg",
+          "gt": "29H1-64664",
+          "tags": [],
+          "n_detections": 4,
+          "detect_ms": 120.15770003199577,
+          "full_ms": 1427.0758000202477,
+          "predictions": {
+            "baseline": {
+              "text": "29-HI-646.64",
+              "ocr_conf": 0.8171346868409437,
+              "cer": 0.1111111111111111,
+              "exact": false,
+              "bbox": [
+                322,
+                315,
+                408,
+                380
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "29-HI-646.64",
+              "ocr_conf": 0.8171346868409437,
+              "cer": 0.1111111111111111,
+              "exact": false,
+              "bbox": [
+                322,
+                315,
+                408,
+                380
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "29-HI-646.64",
+              "ocr_conf": 0.8171346868409437,
+              "cer": 0.1111111111111111,
+              "exact": false,
+              "bbox": [
+                322,
+                315,
+                408,
+                380
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "29HI-64664",
+              "ocr_conf": 0.8171346868409437,
+              "cer": 0.1111111111111111,
+              "exact": false,
+              "bbox": [
+                322,
+                315,
+                408,
+                380
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                322,
+                315,
+                408,
+                380
+              ],
+              "det_conf": 0.9279881119728088,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 359.7904001362622,
+              "texts": {
+                "baseline": [
+                  "29-HI-646.64",
+                  0.8171346868409437
+                ],
+                "+ preprocess": [
+                  "29-HI-646.64",
+                  0.8171346868409437
+                ],
+                "+ rectify": [
+                  "29-HI-646.64",
+                  0.8171346868409437
+                ],
+                "+ rules": [
+                  "29HI-64664",
+                  0.8171346868409437
+                ]
+              }
+            },
+            {
+              "bbox": [
+                5,
+                285,
+                104,
+                350
+              ],
+              "det_conf": 0.9247311353683472,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 377.08040000870824,
+              "texts": {
+                "baseline": [
+                  "24-B2-11458",
+                  0.8814144995115776
+                ],
+                "+ preprocess": [
+                  "24-B2-11458",
+                  0.8814144995115776
+                ],
+                "+ rectify": [
+                  "24-B2-11458",
+                  0.8814144995115776
+                ],
+                "+ rules": [
+                  "24B2-11458",
+                  0.8814144995115776
+                ]
+              }
+            },
+            {
+              "bbox": [
+                488,
+                298,
+                565,
+                353
+              ],
+              "det_conf": 0.9176912903785706,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 335.6270999647677,
+              "texts": {
+                "baseline": [
+                  "29-6F-781.81",
+                  0.5721453812692283
+                ],
+                "+ preprocess": [
+                  "29-6F-781.81",
+                  0.5721453812692283
+                ],
+                "+ rectify": [
+                  "29-6F-781.81",
+                  0.5721453812692283
+                ],
+                "+ rules": [
+                  "29GF-78181",
+                  0.5721453812692283
+                ]
+              }
+            },
+            {
+              "bbox": [
+                626,
+                296,
+                678,
+                348
+              ],
+              "det_conf": 0.8956369161605835,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 234.4201998785138,
+              "texts": {
+                "baseline": [
+                  "29-IZ-057",
+                  0.7040610603204236
+                ],
+                "+ preprocess": [
+                  "29-IZ-057",
+                  0.7040610603204236
+                ],
+                "+ rectify": [
+                  "29-IZ-057",
+                  0.7040610603204236
+                ],
+                "+ rules": [
+                  "29I-2057",
+                  0.7040610603204236
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/8.jpg",
+          "gt": "50C-45874",
+          "tags": [],
+          "n_detections": 1,
+          "detect_ms": 112.88509983569384,
+          "full_ms": 491.2032999563962,
+          "predictions": {
+            "baseline": {
+              "text": "50-CA-5814",
+              "ocr_conf": 0.7726103951908774,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                292,
+                255,
+                375,
+                319
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "50-CA-5814",
+              "ocr_conf": 0.7726103951908774,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                292,
+                255,
+                375,
+                319
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "50-CA-5814",
+              "ocr_conf": 0.7726103951908774,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                292,
+                255,
+                375,
+                319
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "50CA-5814",
+              "ocr_conf": 0.7726103951908774,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                292,
+                255,
+                375,
+                319
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                292,
+                255,
+                375,
+                319
+              ],
+              "det_conf": 0.915707528591156,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 378.3182001207024,
+              "texts": {
+                "baseline": [
+                  "50-CA-5814",
+                  0.7726103951908774
+                ],
+                "+ preprocess": [
+                  "50-CA-5814",
+                  0.7726103951908774
+                ],
+                "+ rectify": [
+                  "50-CA-5814",
+                  0.7726103951908774
+                ],
+                "+ rules": [
+                  "50CA-5814",
+                  0.7726103951908774
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/9.jpg",
+          "gt": "29L1-31332",
+          "tags": [],
+          "n_detections": 3,
+          "detect_ms": 405.95739986747503,
+          "full_ms": 1486.549699679017,
+          "predictions": {
+            "baseline": {
+              "text": "29-LT-313.32",
+              "ocr_conf": 0.539877916338547,
+              "cer": 0.1111111111111111,
+              "exact": false,
+              "bbox": [
+                132,
+                326,
+                243,
+                406
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "29-LT-313.32",
+              "ocr_conf": 0.539877916338547,
+              "cer": 0.1111111111111111,
+              "exact": false,
+              "bbox": [
+                132,
+                326,
+                243,
+                406
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "29-LT-313.32",
+              "ocr_conf": 0.539877916338547,
+              "cer": 0.1111111111111111,
+              "exact": false,
+              "bbox": [
+                132,
+                326,
+                243,
+                406
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "29LT-31332",
+              "ocr_conf": 0.539877916338547,
+              "cer": 0.1111111111111111,
+              "exact": false,
+              "bbox": [
+                132,
+                326,
+                243,
+                406
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                498,
+                267,
+                613,
+                356
+              ],
+              "det_conf": 0.9303423166275024,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 413.5054999496788,
+              "texts": {
+                "baseline": [
+                  "16-N9-1995",
+                  0.9218138755562433
+                ],
+                "+ preprocess": [
+                  "16-N9-1995",
+                  0.9218138755562433
+                ],
+                "+ rectify": [
+                  "16-N9-1995",
+                  0.9218138755562433
+                ],
+                "+ rules": [
+                  "16N9-1995",
+                  0.9218138755562433
+                ]
+              }
+            },
+            {
+              "bbox": [
+                132,
+                326,
+                243,
+                406
+              ],
+              "det_conf": 0.9265215992927551,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 494.179799919948,
+              "texts": {
+                "baseline": [
+                  "29-LT-313.32",
+                  0.539877916338547
+                ],
+                "+ preprocess": [
+                  "29-LT-313.32",
+                  0.539877916338547
+                ],
+                "+ rectify": [
+                  "29-LT-313.32",
+                  0.539877916338547
+                ],
+                "+ rules": [
+                  "29LT-31332",
+                  0.539877916338547
+                ]
+              }
+            },
+            {
+              "bbox": [
+                428,
+                16,
+                480,
+                71
+              ],
+              "det_conf": 0.45428603887557983,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 172.90699994191527,
+              "texts": {
+                "baseline": [
+                  "",
+                  0.0
+                ],
+                "+ preprocess": [
+                  "90",
+                  0.5455041225830771
+                ],
+                "+ rectify": [
+                  "90",
+                  0.5455041225830771
+                ],
+                "+ rules": [
+                  "90",
+                  0.5455041225830771
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/10.jpg",
+          "gt": "29AY-05633",
+          "tags": [
+            "two_line",
+            "small",
+            "blurry"
+          ],
+          "n_detections": 2,
+          "detect_ms": 132.1415000129491,
+          "full_ms": 628.3789998851717,
+          "predictions": {
+            "baseline": {
+              "text": "729-AX-1056.23",
+              "ocr_conf": 0.25237396190883,
+              "cer": 0.4444444444444444,
+              "exact": false,
+              "bbox": [
+                163,
+                284,
+                213,
+                326
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "729-AX-1056.23",
+              "ocr_conf": 0.25237396190883,
+              "cer": 0.4444444444444444,
+              "exact": false,
+              "bbox": [
+                163,
+                284,
+                213,
+                326
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "729-AX-1056.23",
+              "ocr_conf": 0.25237396190883,
+              "cer": 0.4444444444444444,
+              "exact": false,
+              "bbox": [
+                163,
+                284,
+                213,
+                326
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "729AX105623",
+              "ocr_conf": 0.25237396190883,
+              "cer": 0.4444444444444444,
+              "exact": false,
+              "bbox": [
+                163,
+                284,
+                213,
+                326
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                163,
+                284,
+                213,
+                326
+              ],
+              "det_conf": 0.902630090713501,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 389.15099995210767,
+              "texts": {
+                "baseline": [
+                  "729-AX-1056.23",
+                  0.25237396190883
+                ],
+                "+ preprocess": [
+                  "729-AX-1056.23",
+                  0.25237396190883
+                ],
+                "+ rectify": [
+                  "729-AX-1056.23",
+                  0.25237396190883
+                ],
+                "+ rules": [
+                  "729AX105623",
+                  0.25237396190883
+                ]
+              }
+            },
+            {
+              "bbox": [
+                298,
+                212,
+                334,
+                239
+              ],
+              "det_conf": 0.6216699481010437,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 107.08649992011487,
+              "texts": {
+                "baseline": [
+                  "",
+                  0.0
+                ],
+                "+ preprocess": [
+                  "",
+                  0.0
+                ],
+                "+ rectify": [
+                  "",
+                  0.0
+                ],
+                "+ rules": [
+                  "",
+                  0.0
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/11.jpg",
+          "gt": "95A-0289",
+          "tags": [
+            "two_line",
+            "angled"
+          ],
+          "n_detections": 1,
+          "detect_ms": 99.53429992310703,
+          "full_ms": 697.9501000605524,
+          "predictions": {
+            "baseline": {
+              "text": "95-02891",
+              "ocr_conf": 0.7840442343488915,
+              "cer": 0.2857142857142857,
+              "exact": false,
+              "bbox": [
+                37,
+                138,
+                180,
+                263
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "95-02891",
+              "ocr_conf": 0.7840442343488915,
+              "cer": 0.2857142857142857,
+              "exact": false,
+              "bbox": [
+                37,
+                138,
+                180,
+                263
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "95-02891",
+              "ocr_conf": 0.7840442343488915,
+              "cer": 0.2857142857142857,
+              "exact": false,
+              "bbox": [
+                37,
+                138,
+                180,
+                263
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "95D-2891",
+              "ocr_conf": 0.7840442343488915,
+              "cer": 0.42857142857142855,
+              "exact": false,
+              "bbox": [
+                37,
+                138,
+                180,
+                263
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                37,
+                138,
+                180,
+                263
+              ],
+              "det_conf": 0.9055516719818115,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 598.4158001374453,
+              "texts": {
+                "baseline": [
+                  "95-02891",
+                  0.7840442343488915
+                ],
+                "+ preprocess": [
+                  "95-02891",
+                  0.7840442343488915
+                ],
+                "+ rectify": [
+                  "95-02891",
+                  0.7840442343488915
+                ],
+                "+ rules": [
+                  "95D-2891",
+                  0.7840442343488915
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/4628557012_f34356ecef_z.jpg",
+          "gt": "67N-94486",
+          "tags": [
+            "two_line",
+            "small",
+            "blurry"
+          ],
+          "n_detections": 5,
+          "detect_ms": 169.69679994508624,
+          "full_ms": 1213.9087000396103,
+          "predictions": {
+            "baseline": {
+              "text": "09",
+              "ocr_conf": 0.09654530130617021,
+              "cer": 0.875,
+              "exact": false,
+              "bbox": [
+                364,
+                319,
+                414,
+                360
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "0285",
+              "ocr_conf": 0.2945457696914673,
+              "cer": 0.875,
+              "exact": false,
+              "bbox": [
+                31,
+                321,
+                87,
+                358
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "0285",
+              "ocr_conf": 0.2945457696914673,
+              "cer": 0.875,
+              "exact": false,
+              "bbox": [
+                31,
+                321,
+                87,
+                358
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "0285",
+              "ocr_conf": 0.2945457696914673,
+              "cer": 0.875,
+              "exact": false,
+              "bbox": [
+                31,
+                321,
+                87,
+                358
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                364,
+                319,
+                414,
+                360
+              ],
+              "det_conf": 0.8730077147483826,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 224.34550011530519,
+              "texts": {
+                "baseline": [
+                  "09",
+                  0.09654530130617021
+                ],
+                "+ preprocess": [
+                  "5165",
+                  0.6306576728820801
+                ],
+                "+ rectify": [
+                  "5165",
+                  0.6306576728820801
+                ],
+                "+ rules": [
+                  "5165",
+                  0.6306576728820801
+                ]
+              }
+            },
+            {
+              "bbox": [
+                31,
+                321,
+                87,
+                358
+              ],
+              "det_conf": 0.8709749579429626,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 165.30969995073974,
+              "texts": {
+                "baseline": [
+                  "0285",
+                  0.2945457696914673
+                ],
+                "+ preprocess": [
+                  "0285",
+                  0.2945457696914673
+                ],
+                "+ rectify": [
+                  "0285",
+                  0.2945457696914673
+                ],
+                "+ rules": [
+                  "0285",
+                  0.2945457696914673
+                ]
+              }
+            },
+            {
+              "bbox": [
+                238,
+                333,
+                285,
+                372
+              ],
+              "det_conf": 0.8639049530029297,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 185.75379997491837,
+              "texts": {
+                "baseline": [
+                  "6W",
+                  0.1617871805177119
+                ],
+                "+ preprocess": [
+                  "6W",
+                  0.1617871805177119
+                ],
+                "+ rectify": [
+                  "6W",
+                  0.1617871805177119
+                ],
+                "+ rules": [
+                  "6W",
+                  0.1617871805177119
+                ]
+              }
+            },
+            {
+              "bbox": [
+                450,
+                318,
+                496,
+                352
+              ],
+              "det_conf": 0.39387619495391846,
+              "plate_class": 0,
+              "rectified": false,
+              "full_ms": 246.47330003790557,
+              "texts": {
+                "baseline": [
+                  "0H",
+                  0.08135975647151306
+                ],
+                "+ preprocess": [
+                  "08",
+                  0.5504799841131073
+                ],
+                "+ rectify": [
+                  "08",
+                  0.5504799841131073
+                ],
+                "+ rules": [
+                  "08",
+                  0.5504799841131073
+                ]
+              }
+            },
+            {
+              "bbox": [
+                451,
+                318,
+                495,
+                353
+              ],
+              "det_conf": 0.34794098138809204,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 222.32960001565516,
+              "texts": {
+                "baseline": [
+                  "03",
+                  0.03382642206357505
+                ],
+                "+ preprocess": [
+                  "100",
+                  0.14273249371664146
+                ],
+                "+ rectify": [
+                  "100",
+                  0.14273249371664146
+                ],
+                "+ rules": [
+                  "100",
+                  0.14273249371664146
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/734463152174860876151130411320286269407232n-15724023731351045306877.jpg",
+          "gt": "29M-2268",
+          "tags": [
+            "lowlight"
+          ],
+          "n_detections": 1,
+          "detect_ms": 121.86580011621118,
+          "full_ms": 478.065500035882,
+          "predictions": {
+            "baseline": {
+              "text": "F91.22683",
+              "ocr_conf": 0.1593958753301618,
+              "cer": 0.42857142857142855,
+              "exact": false,
+              "bbox": [
+                325,
+                557,
+                441,
+                592
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "129612268",
+              "ocr_conf": 0.4191875512765124,
+              "cer": 0.42857142857142855,
+              "exact": false,
+              "bbox": [
+                325,
+                557,
+                441,
+                592
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "129612268",
+              "ocr_conf": 0.4191875512765124,
+              "cer": 0.42857142857142855,
+              "exact": false,
+              "bbox": [
+                325,
+                557,
+                441,
+                592
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "1296-12268",
+              "ocr_conf": 0.4191875512765124,
+              "cer": 0.42857142857142855,
+              "exact": false,
+              "bbox": [
+                325,
+                557,
+                441,
+                592
+              ],
+              "plate_class": 0,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                325,
+                557,
+                441,
+                592
+              ],
+              "det_conf": 0.8779603242874146,
+              "plate_class": 0,
+              "rectified": false,
+              "full_ms": 356.1996999196708,
+              "texts": {
+                "baseline": [
+                  "F91.22683",
+                  0.1593958753301618
+                ],
+                "+ preprocess": [
+                  "129612268",
+                  0.4191875512765124
+                ],
+                "+ rectify": [
+                  "129612268",
+                  0.4191875512765124
+                ],
+                "+ rules": [
+                  "1296-12268",
+                  0.4191875512765124
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/a2-1601381969194354508568.jpg",
+          "gt": "29A-06131",
+          "tags": [
+            "two_line"
+          ],
+          "n_detections": 1,
+          "detect_ms": 124.1584001109004,
+          "full_ms": 461.48709999397397,
+          "predictions": {
+            "baseline": {
+              "text": "29A-0613",
+              "ocr_conf": 0.8805084084943011,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                274,
+                462,
+                383,
+                542
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "29A-0613",
+              "ocr_conf": 0.8805084084943011,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                274,
+                462,
+                383,
+                542
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "29A-0613",
+              "ocr_conf": 0.8805084084943011,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                274,
+                462,
+                383,
+                542
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "29A-0613",
+              "ocr_conf": 0.8805084084943011,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                274,
+                462,
+                383,
+                542
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                274,
+                462,
+                383,
+                542
+              ],
+              "det_conf": 0.9168859720230103,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 337.32869988307357,
+              "texts": {
+                "baseline": [
+                  "29A-0613",
+                  0.8805084084943011
+                ],
+                "+ preprocess": [
+                  "29A-0613",
+                  0.8805084084943011
+                ],
+                "+ rectify": [
+                  "29A-0613",
+                  0.8805084084943011
+                ],
+                "+ rules": [
+                  "29A-0613",
+                  0.8805084084943011
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/base64-1621693916499331357512.png",
+          "gt": "29N1-72202",
+          "tags": [
+            "two_line",
+            "angled",
+            "blurry"
+          ],
+          "n_detections": 1,
+          "detect_ms": 115.01089995726943,
+          "full_ms": 1878.6447998136282,
+          "predictions": {
+            "baseline": {
+              "text": "29-K1-722.02",
+              "ocr_conf": 0.5332644987488835,
+              "cer": 0.1111111111111111,
+              "exact": false,
+              "bbox": [
+                2103,
+                1274,
+                2426,
+                1494
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "29-K1-722.02",
+              "ocr_conf": 0.5332644987488835,
+              "cer": 0.1111111111111111,
+              "exact": false,
+              "bbox": [
+                2103,
+                1274,
+                2426,
+                1494
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "29-K1-722.02",
+              "ocr_conf": 0.5332644987488835,
+              "cer": 0.1111111111111111,
+              "exact": false,
+              "bbox": [
+                2103,
+                1274,
+                2426,
+                1494
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "29K1-72202",
+              "ocr_conf": 0.5332644987488835,
+              "cer": 0.1111111111111111,
+              "exact": false,
+              "bbox": [
+                2103,
+                1274,
+                2426,
+                1494
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                2103,
+                1274,
+                2426,
+                1494
+              ],
+              "det_conf": 0.9162214994430542,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 1763.6338998563588,
+              "texts": {
+                "baseline": [
+                  "29-K1-722.02",
+                  0.5332644987488835
+                ],
+                "+ preprocess": [
+                  "29-K1-722.02",
+                  0.5332644987488835
+                ],
+                "+ rectify": [
+                  "29-K1-722.02",
+                  0.5332644987488835
+                ],
+                "+ rules": [
+                  "29K1-72202",
+                  0.5332644987488835
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/bs xe SH300i ABS 2020 T version.jpg",
+          "gt": "59A3-17508",
+          "tags": [
+            "two_line"
+          ],
+          "n_detections": 1,
+          "detect_ms": 141.4649998769164,
+          "full_ms": 768.9587997738272,
+          "predictions": {
+            "baseline": {
+              "text": "59843-1175.08",
+              "ocr_conf": 0.5854448047737305,
+              "cer": 0.3333333333333333,
+              "exact": false,
+              "bbox": [
+                299,
+                621,
+                470,
+                737
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "59843-1175.08",
+              "ocr_conf": 0.5854448047737305,
+              "cer": 0.3333333333333333,
+              "exact": false,
+              "bbox": [
+                299,
+                621,
+                470,
+                737
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "59843-1175.08",
+              "ocr_conf": 0.5854448047737305,
+              "cer": 0.3333333333333333,
+              "exact": false,
+              "bbox": [
+                299,
+                621,
+                470,
+                737
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "59843117508",
+              "ocr_conf": 0.5854448047737305,
+              "cer": 0.3333333333333333,
+              "exact": false,
+              "bbox": [
+                299,
+                621,
+                470,
+                737
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                299,
+                621,
+                470,
+                737
+              ],
+              "det_conf": 0.9243400692939758,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 627.4937998969108,
+              "texts": {
+                "baseline": [
+                  "59843-1175.08",
+                  0.5854448047737305
+                ],
+                "+ preprocess": [
+                  "59843-1175.08",
+                  0.5854448047737305
+                ],
+                "+ rectify": [
+                  "59843-1175.08",
+                  0.5854448047737305
+                ],
+                "+ rules": [
+                  "59843117508",
+                  0.5854448047737305
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/buoc-dau-xac-dinh-duoc-danh-tinh-tai-xe-xe-bien-xanh-chay-bat-mang-o-sai-gon.jpg",
+          "gt": "80B-3758",
+          "tags": [
+            "two_line",
+            "blurry"
+          ],
+          "n_detections": 2,
+          "detect_ms": 157.06459991633892,
+          "full_ms": 795.9980999585241,
+          "predictions": {
+            "baseline": {
+              "text": "80B-3758",
+              "ocr_conf": 0.7666733617342388,
+              "cer": 0.0,
+              "exact": true,
+              "bbox": [
+                727,
+                483,
+                824,
+                551
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "80B-3758",
+              "ocr_conf": 0.8716982554485668,
+              "cer": 0.0,
+              "exact": true,
+              "bbox": [
+                727,
+                483,
+                824,
+                551
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "80B-3758",
+              "ocr_conf": 0.8716982554485668,
+              "cer": 0.0,
+              "exact": true,
+              "bbox": [
+                727,
+                483,
+                824,
+                551
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "80B-3758",
+              "ocr_conf": 0.8716982554485668,
+              "cer": 0.0,
+              "exact": true,
+              "bbox": [
+                727,
+                483,
+                824,
+                551
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                727,
+                483,
+                824,
+                551
+              ],
+              "det_conf": 0.8302267789840698,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 482.4292999692261,
+              "texts": {
+                "baseline": [
+                  "80B-3758",
+                  0.7666733617342388
+                ],
+                "+ preprocess": [
+                  "80B-3758",
+                  0.8716982554485668
+                ],
+                "+ rectify": [
+                  "80B-3758",
+                  0.8716982554485668
+                ],
+                "+ rules": [
+                  "80B-3758",
+                  0.8716982554485668
+                ]
+              }
+            },
+            {
+              "bbox": [
+                1375,
+                215,
+                1474,
+                268
+              ],
+              "det_conf": 0.30776700377464294,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 156.50420007295907,
+              "texts": {
+                "baseline": [
+                  "",
+                  0.0
+                ],
+                "+ preprocess": [
+                  "",
+                  0.0
+                ],
+                "+ rectify": [
+                  "",
+                  0.0
+                ],
+                "+ rules": [
+                  "",
+                  0.0
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/csgt-edited-1762225091482.jpg",
+          "gt": "29D2-39999",
+          "tags": [
+            "angled"
+          ],
+          "n_detections": 4,
+          "detect_ms": 109.7813998349011,
+          "full_ms": 1305.3478000219911,
+          "predictions": {
+            "baseline": {
+              "text": "29-02-399.99",
+              "ocr_conf": 0.6065648579843751,
+              "cer": 0.1111111111111111,
+              "exact": false,
+              "bbox": [
+                675,
+                323,
+                771,
+                422
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "29-0239999",
+              "ocr_conf": 0.9429477143412333,
+              "cer": 0.1111111111111111,
+              "exact": false,
+              "bbox": [
+                675,
+                323,
+                771,
+                422
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "29-02-399.99",
+              "ocr_conf": 0.9404771152744442,
+              "cer": 0.1111111111111111,
+              "exact": false,
+              "bbox": [
+                204,
+                410,
+                344,
+                523
+              ],
+              "plate_class": 1,
+              "rectified": true
+            },
+            "+ rules": {
+              "text": "29D2-39999",
+              "ocr_conf": 0.9404771152744442,
+              "cer": 0.0,
+              "exact": true,
+              "bbox": [
+                204,
+                410,
+                344,
+                523
+              ],
+              "plate_class": 1,
+              "rectified": true
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                204,
+                410,
+                344,
+                523
+              ],
+              "det_conf": 0.9308769702911377,
+              "plate_class": 1,
+              "rectified": true,
+              "full_ms": 341.1755000706762,
+              "texts": {
+                "baseline": [
+                  "3999929-02",
+                  0.7450107064944559
+                ],
+                "+ preprocess": [
+                  "3999929-02",
+                  0.7450107064944559
+                ],
+                "+ rectify": [
+                  "29-02-399.99",
+                  0.9404771152744442
+                ],
+                "+ rules": [
+                  "29D2-39999",
+                  0.9404771152744442
+                ]
+              }
+            },
+            {
+              "bbox": [
+                675,
+                323,
+                771,
+                422
+              ],
+              "det_conf": 0.9137023687362671,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 371.39270012266934,
+              "texts": {
+                "baseline": [
+                  "29-02-399.99",
+                  0.6065648579843751
+                ],
+                "+ preprocess": [
+                  "29-0239999",
+                  0.9429477143412333
+                ],
+                "+ rectify": [
+                  "29-0239999",
+                  0.9429477143412333
+                ],
+                "+ rules": [
+                  "29D2-39999",
+                  0.9429477143412333
+                ]
+              }
+            },
+            {
+              "bbox": [
+                306,
+                164,
+                365,
+                210
+              ],
+              "det_conf": 0.8121806383132935,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 234.6650999970734,
+              "texts": {
+                "baseline": [
+                  "29-BF-09543",
+                  0.48816053731424114
+                ],
+                "+ preprocess": [
+                  "29-BF-09543",
+                  0.48816053731424114
+                ],
+                "+ rectify": [
+                  "29-BF-09543",
+                  0.48816053731424114
+                ],
+                "+ rules": [
+                  "29BF-09543",
+                  0.48816053731424114
+                ]
+              }
+            },
+            {
+              "bbox": [
+                65,
+                114,
+                113,
+                151
+              ],
+              "det_conf": 0.49710971117019653,
+              "plate_class": 1,
+              "rectified": true,
+              "full_ms": 248.33309999667108,
+              "texts": {
+                "baseline": [
+                  "192-1063",
+                  0.5464681727647694
+                ],
+                "+ preprocess": [
+                  "192-1063",
+                  0.5464681727647694
+                ],
+                "+ rectify": [
+                  "79-E-062",
+                  0.5328335446031224
+                ],
+                "+ rules": [
+                  "79E062",
+                  0.5328335446031224
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/gen-h-z6626694362713-6da82d9ae5cb43d2f899126ad722795e.jpg",
+          "gt": "29AC-88688",
+          "tags": [],
+          "n_detections": 1,
+          "detect_ms": 197.46260019019246,
+          "full_ms": 1324.692000169307,
+          "predictions": {
+            "baseline": {
+              "text": "29-AC-886.88",
+              "ocr_conf": 0.9876829674920212,
+              "cer": 0.0,
+              "exact": true,
+              "bbox": [
+                174,
+                534,
+                379,
+                679
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "29-AC-886.88",
+              "ocr_conf": 0.9996462682488082,
+              "cer": 0.0,
+              "exact": true,
+              "bbox": [
+                174,
+                534,
+                379,
+                679
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "29-AC-886.88",
+              "ocr_conf": 0.9996462682488082,
+              "cer": 0.0,
+              "exact": true,
+              "bbox": [
+                174,
+                534,
+                379,
+                679
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "29AC-88688",
+              "ocr_conf": 0.9996462682488082,
+              "cer": 0.0,
+              "exact": true,
+              "bbox": [
+                174,
+                534,
+                379,
+                679
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                174,
+                534,
+                379,
+                679
+              ],
+              "det_conf": 0.9274061918258667,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 1127.2293999791145,
+              "texts": {
+                "baseline": [
+                  "29-AC-886.88",
+                  0.9876829674920212
+                ],
+                "+ preprocess": [
+                  "29-AC-886.88",
+                  0.9996462682488082
+                ],
+                "+ rectify": [
+                  "29-AC-886.88",
+                  0.9996462682488082
+                ],
+                "+ rules": [
+                  "29AC-88688",
+                  0.9996462682488082
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/photo-1-1599705164780596507055.jpg",
+          "gt": "68E-00007",
+          "tags": [
+            "two_line",
+            "blurry"
+          ],
+          "n_detections": 1,
+          "detect_ms": 151.374600129202,
+          "full_ms": 524.2263001855463,
+          "predictions": {
+            "baseline": {
+              "text": "681-000.07",
+              "ocr_conf": 0.7935772530732598,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                353,
+                133,
+                403,
+                161
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "681-000.07",
+              "ocr_conf": 0.7935772530732598,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                353,
+                133,
+                403,
+                161
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "681-000.07",
+              "ocr_conf": 0.7935772530732598,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                353,
+                133,
+                403,
+                161
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "681-00007",
+              "ocr_conf": 0.7935772530732598,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                353,
+                133,
+                403,
+                161
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                353,
+                133,
+                403,
+                161
+              ],
+              "det_conf": 0.8774329423904419,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 372.85170005634427,
+              "texts": {
+                "baseline": [
+                  "681-000.07",
+                  0.7935772530732598
+                ],
+                "+ preprocess": [
+                  "681-000.07",
+                  0.7935772530732598
+                ],
+                "+ rectify": [
+                  "681-000.07",
+                  0.7935772530732598
+                ],
+                "+ rules": [
+                  "681-00007",
+                  0.7935772530732598
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0556_png.rf.88568269425947b8ba638a4b3bc6298c.jpg",
+          "gt": "30E-34422",
+          "tags": [
+            "two_line",
+            "angled"
+          ],
+          "n_detections": 1,
+          "detect_ms": 236.11479997634888,
+          "full_ms": 3080.912600038573,
+          "predictions": {
+            "baseline": {
+              "text": "J0E-1344227",
+              "ocr_conf": 0.2936164096176213,
+              "cer": 0.375,
+              "exact": false,
+              "bbox": [
+                113,
+                130,
+                423,
+                531
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "3-134422",
+              "ocr_conf": 0.8019143310649951,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                113,
+                130,
+                423,
+                531
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "3-134422",
+              "ocr_conf": 0.8019143310649951,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                113,
+                130,
+                423,
+                531
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "313-4422",
+              "ocr_conf": 0.8019143310649951,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                113,
+                130,
+                423,
+                531
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                113,
+                130,
+                423,
+                531
+              ],
+              "det_conf": 0.7641947865486145,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 2844.7978000622243,
+              "texts": {
+                "baseline": [
+                  "J0E-1344227",
+                  0.2936164096176213
+                ],
+                "+ preprocess": [
+                  "3-134422",
+                  0.8019143310649951
+                ],
+                "+ rectify": [
+                  "3-134422",
+                  0.8019143310649951
+                ],
+                "+ rules": [
+                  "313-4422",
+                  0.8019143310649951
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0559_png.rf.23ba0498a7f683345cb7f2a38e0413bd.jpg",
+          "gt": "20A-36078",
+          "tags": [
+            "blurry"
+          ],
+          "n_detections": 1,
+          "detect_ms": 148.48570013418794,
+          "full_ms": 1283.0969002097845,
+          "predictions": {
+            "baseline": {
+              "text": "F0136078",
+              "ocr_conf": 0.29478520379512235,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                199,
+                294,
+                490,
+                437
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "20H36078",
+              "ocr_conf": 0.7443471541707862,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                199,
+                294,
+                490,
+                437
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "20H36078",
+              "ocr_conf": 0.7443471541707862,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                199,
+                294,
+                490,
+                437
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "20H-36078",
+              "ocr_conf": 0.7443471541707862,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                199,
+                294,
+                490,
+                437
+              ],
+              "plate_class": 0,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                199,
+                294,
+                490,
+                437
+              ],
+              "det_conf": 0.9053874015808105,
+              "plate_class": 0,
+              "rectified": false,
+              "full_ms": 1134.6112000755966,
+              "texts": {
+                "baseline": [
+                  "F0136078",
+                  0.29478520379512235
+                ],
+                "+ preprocess": [
+                  "20H36078",
+                  0.7443471541707862
+                ],
+                "+ rectify": [
+                  "20H36078",
+                  0.7443471541707862
+                ],
+                "+ rules": [
+                  "20H-36078",
+                  0.7443471541707862
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0567_png.rf.7df0da3df73851fafb00a11aa9003862.jpg",
+          "gt": "29A-37277",
+          "tags": [
+            "lowlight",
+            "blurry"
+          ],
+          "n_detections": 1,
+          "detect_ms": 162.80289995484054,
+          "full_ms": 1028.8757998496294,
+          "predictions": {
+            "baseline": {
+              "text": "73177",
+              "ocr_conf": 0.040818730783065374,
+              "cer": 0.625,
+              "exact": false,
+              "bbox": [
+                134,
+                213,
+                412,
+                314
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "29137277",
+              "ocr_conf": 0.6875840574380605,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                134,
+                213,
+                412,
+                314
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "29137277",
+              "ocr_conf": 0.6875840574380605,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                134,
+                213,
+                412,
+                314
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "291-37277",
+              "ocr_conf": 0.6875840574380605,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                134,
+                213,
+                412,
+                314
+              ],
+              "plate_class": 0,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                134,
+                213,
+                412,
+                314
+              ],
+              "det_conf": 0.8981191515922546,
+              "plate_class": 0,
+              "rectified": false,
+              "full_ms": 866.0728998947889,
+              "texts": {
+                "baseline": [
+                  "73177",
+                  0.040818730783065374
+                ],
+                "+ preprocess": [
+                  "29137277",
+                  0.6875840574380605
+                ],
+                "+ rectify": [
+                  "29137277",
+                  0.6875840574380605
+                ],
+                "+ rules": [
+                  "291-37277",
+                  0.6875840574380605
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0570_png.rf.1b0133f993737716ee5a90279bdd55ee.jpg",
+          "gt": "30E-38721",
+          "tags": [
+            "blurry"
+          ],
+          "n_detections": 1,
+          "detect_ms": 149.73129983991385,
+          "full_ms": 913.0459998268634,
+          "predictions": {
+            "baseline": {
+              "text": "B0E.38721",
+              "ocr_conf": 0.4321991706205227,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                183,
+                236,
+                468,
+                328
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "BOE38721",
+              "ocr_conf": 0.5884736453049147,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                183,
+                236,
+                468,
+                328
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "BOE38721",
+              "ocr_conf": 0.5884736453049147,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                183,
+                236,
+                468,
+                328
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "80E-38721",
+              "ocr_conf": 0.5884736453049147,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                183,
+                236,
+                468,
+                328
+              ],
+              "plate_class": 0,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                183,
+                236,
+                468,
+                328
+              ],
+              "det_conf": 0.8996105194091797,
+              "plate_class": 0,
+              "rectified": false,
+              "full_ms": 763.3146999869496,
+              "texts": {
+                "baseline": [
+                  "B0E.38721",
+                  0.4321991706205227
+                ],
+                "+ preprocess": [
+                  "BOE38721",
+                  0.5884736453049147
+                ],
+                "+ rectify": [
+                  "BOE38721",
+                  0.5884736453049147
+                ],
+                "+ rules": [
+                  "80E-38721",
+                  0.5884736453049147
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0572_png.rf.f668e2edd6abe56dc3bf9f5887d881cb.jpg",
+          "gt": "30F-39361",
+          "tags": [
+            "small",
+            "blurry"
+          ],
+          "n_detections": 1,
+          "detect_ms": 168.640699936077,
+          "full_ms": 1424.7161999810487,
+          "predictions": {
+            "baseline": {
+              "text": "3UF-39361",
+              "ocr_conf": 0.5811614475334204,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                200,
+                325,
+                394,
+                558
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "3UF-39361",
+              "ocr_conf": 0.5811614475334204,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                200,
+                325,
+                394,
+                558
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "3UF-39361",
+              "ocr_conf": 0.5811614475334204,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                200,
+                325,
+                394,
+                558
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "3UF-39361",
+              "ocr_conf": 0.5811614475334204,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                200,
+                325,
+                394,
+                558
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                200,
+                325,
+                394,
+                558
+              ],
+              "det_conf": 0.9235205054283142,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 1256.0755000449717,
+              "texts": {
+                "baseline": [
+                  "3UF-39361",
+                  0.5811614475334204
+                ],
+                "+ preprocess": [
+                  "3UF-39361",
+                  0.5811614475334204
+                ],
+                "+ rectify": [
+                  "3UF-39361",
+                  0.5811614475334204
+                ],
+                "+ rules": [
+                  "3UF-39361",
+                  0.5811614475334204
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0575_png.rf.a3771c0822eaee771acab10b4cf54293.jpg",
+          "gt": "29H-40433",
+          "tags": [],
+          "n_detections": 1,
+          "detect_ms": 167.43810009211302,
+          "full_ms": 1694.039300084114,
+          "predictions": {
+            "baseline": {
+              "text": "29H-404.33",
+              "ocr_conf": 0.8829775302405033,
+              "cer": 0.0,
+              "exact": true,
+              "bbox": [
+                156,
+                234,
+                426,
+                465
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "29H-404.33",
+              "ocr_conf": 0.8829775302405033,
+              "cer": 0.0,
+              "exact": true,
+              "bbox": [
+                156,
+                234,
+                426,
+                465
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "29H-404.33",
+              "ocr_conf": 0.8829775302405033,
+              "cer": 0.0,
+              "exact": true,
+              "bbox": [
+                156,
+                234,
+                426,
+                465
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "29H-40433",
+              "ocr_conf": 0.8829775302405033,
+              "cer": 0.0,
+              "exact": true,
+              "bbox": [
+                156,
+                234,
+                426,
+                465
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                156,
+                234,
+                426,
+                465
+              ],
+              "det_conf": 0.9209485054016113,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 1526.601199992001,
+              "texts": {
+                "baseline": [
+                  "29H-404.33",
+                  0.8829775302405033
+                ],
+                "+ preprocess": [
+                  "29H-404.33",
+                  0.8829775302405033
+                ],
+                "+ rectify": [
+                  "29H-404.33",
+                  0.8829775302405033
+                ],
+                "+ rules": [
+                  "29H-40433",
+                  0.8829775302405033
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0605_png.rf.f84091cfff4768c8ad846af3eee9629c.jpg",
+          "gt": "30E-54515",
+          "tags": [
+            "angled",
+            "blurry"
+          ],
+          "n_detections": 1,
+          "detect_ms": 164.13929988630116,
+          "full_ms": 1709.2615999281406,
+          "predictions": {
+            "baseline": {
+              "text": "JE-654515",
+              "ocr_conf": 0.4395304469233807,
+              "cer": 0.375,
+              "exact": false,
+              "bbox": [
+                222,
+                319,
+                447,
+                589
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "JE-654515",
+              "ocr_conf": 0.4395304469233807,
+              "cer": 0.375,
+              "exact": false,
+              "bbox": [
+                222,
+                319,
+                447,
+                589
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "JE-654515",
+              "ocr_conf": 0.4395304469233807,
+              "cer": 0.375,
+              "exact": false,
+              "bbox": [
+                222,
+                319,
+                447,
+                589
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "1EG-54515",
+              "ocr_conf": 0.4395304469233807,
+              "cer": 0.375,
+              "exact": false,
+              "bbox": [
+                222,
+                319,
+                447,
+                589
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                222,
+                319,
+                447,
+                589
+              ],
+              "det_conf": 0.8700642585754395,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 1545.1223000418395,
+              "texts": {
+                "baseline": [
+                  "JE-654515",
+                  0.4395304469233807
+                ],
+                "+ preprocess": [
+                  "JE-654515",
+                  0.4395304469233807
+                ],
+                "+ rectify": [
+                  "JE-654515",
+                  0.4395304469233807
+                ],
+                "+ rules": [
+                  "1EG-54515",
+                  0.4395304469233807
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0614_png.rf.b9bd288fdcb58327be91628843647b47.jpg",
+          "gt": "30G-58236",
+          "tags": [
+            "blurry"
+          ],
+          "n_detections": 1,
+          "detect_ms": 217.9191999603063,
+          "full_ms": 1202.0872000139207,
+          "predictions": {
+            "baseline": {
+              "text": "306-582.36",
+              "ocr_conf": 0.6794254437713668,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                187,
+                232,
+                427,
+                381
+              ],
+              "plate_class": 1,
+              "rectified": true
+            },
+            "+ preprocess": {
+              "text": "306-502.36",
+              "ocr_conf": 0.8464198921947188,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                187,
+                232,
+                427,
+                381
+              ],
+              "plate_class": 1,
+              "rectified": true
+            },
+            "+ rectify": {
+              "text": "306-582.36",
+              "ocr_conf": 0.9354045461827593,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                187,
+                232,
+                427,
+                381
+              ],
+              "plate_class": 1,
+              "rectified": true
+            },
+            "+ rules": {
+              "text": "30G-58236",
+              "ocr_conf": 0.9354045461827593,
+              "cer": 0.0,
+              "exact": true,
+              "bbox": [
+                187,
+                232,
+                427,
+                381
+              ],
+              "plate_class": 1,
+              "rectified": true
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                187,
+                232,
+                427,
+                381
+              ],
+              "det_conf": 0.9273665547370911,
+              "plate_class": 1,
+              "rectified": true,
+              "full_ms": 984.1680000536144,
+              "texts": {
+                "baseline": [
+                  "306-582.36",
+                  0.6794254437713668
+                ],
+                "+ preprocess": [
+                  "306-502.36",
+                  0.8464198921947188
+                ],
+                "+ rectify": [
+                  "306-582.36",
+                  0.9354045461827593
+                ],
+                "+ rules": [
+                  "30G-58236",
+                  0.9354045461827593
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0622_png.rf.2dd8a9ff95b4b0c42ef14ddaf33edd15.jpg",
+          "gt": "30A-62043",
+          "tags": [],
+          "n_detections": 1,
+          "detect_ms": 254.23530000261962,
+          "full_ms": 1334.0271001216024,
+          "predictions": {
+            "baseline": {
+              "text": "301-62043",
+              "ocr_conf": 0.367852029942437,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                101,
+                175,
+                462,
+                331
+              ],
+              "plate_class": 0,
+              "rectified": true
+            },
+            "+ preprocess": {
+              "text": "301-62043",
+              "ocr_conf": 0.367852029942437,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                101,
+                175,
+                462,
+                331
+              ],
+              "plate_class": 0,
+              "rectified": true
+            },
+            "+ rectify": {
+              "text": "3043620.43",
+              "ocr_conf": 0.6300207279772072,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                101,
+                175,
+                462,
+                331
+              ],
+              "plate_class": 0,
+              "rectified": true
+            },
+            "+ rules": {
+              "text": "3043-62043",
+              "ocr_conf": 0.6300207279772072,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                101,
+                175,
+                462,
+                331
+              ],
+              "plate_class": 0,
+              "rectified": true
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                101,
+                175,
+                462,
+                331
+              ],
+              "det_conf": 0.9010564088821411,
+              "plate_class": 0,
+              "rectified": true,
+              "full_ms": 1079.7918001189828,
+              "texts": {
+                "baseline": [
+                  "301-62043",
+                  0.367852029942437
+                ],
+                "+ preprocess": [
+                  "301-62043",
+                  0.367852029942437
+                ],
+                "+ rectify": [
+                  "3043620.43",
+                  0.6300207279772072
+                ],
+                "+ rules": [
+                  "3043-62043",
+                  0.6300207279772072
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0626_png.rf.601e1e7d679b49f0f07fc06ad189ef89.jpg",
+          "gt": "30E-64379",
+          "tags": [
+            "blurry"
+          ],
+          "n_detections": 1,
+          "detect_ms": 165.86580011062324,
+          "full_ms": 1556.2861000653356,
+          "predictions": {
+            "baseline": {
+              "text": "D0E6637",
+              "ocr_conf": 0.2775233696587801,
+              "cer": 0.375,
+              "exact": false,
+              "bbox": [
+                113,
+                314,
+                454,
+                470
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "BEE61379",
+              "ocr_conf": 0.6162795079125908,
+              "cer": 0.375,
+              "exact": false,
+              "bbox": [
+                113,
+                314,
+                454,
+                470
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "BEE61379",
+              "ocr_conf": 0.6162795079125908,
+              "cer": 0.375,
+              "exact": false,
+              "bbox": [
+                113,
+                314,
+                454,
+                470
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "8EE-61379",
+              "ocr_conf": 0.6162795079125908,
+              "cer": 0.375,
+              "exact": false,
+              "bbox": [
+                113,
+                314,
+                454,
+                470
+              ],
+              "plate_class": 0,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                113,
+                314,
+                454,
+                470
+              ],
+              "det_conf": 0.8934871554374695,
+              "plate_class": 0,
+              "rectified": false,
+              "full_ms": 1390.4202999547124,
+              "texts": {
+                "baseline": [
+                  "D0E6637",
+                  0.2775233696587801
+                ],
+                "+ preprocess": [
+                  "BEE61379",
+                  0.6162795079125908
+                ],
+                "+ rectify": [
+                  "BEE61379",
+                  0.6162795079125908
+                ],
+                "+ rules": [
+                  "8EE-61379",
+                  0.6162795079125908
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0639_png.rf.70bd5f4861919396b0615dcc713f226f.jpg",
+          "gt": "30A-71980",
+          "tags": [
+            "two_line"
+          ],
+          "n_detections": 1,
+          "detect_ms": 201.21280010789633,
+          "full_ms": 2235.3043002076447,
+          "predictions": {
+            "baseline": {
+              "text": "304-171980",
+              "ocr_conf": 0.6024991685838956,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                164,
+                351,
+                461,
+                640
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "304-171980",
+              "ocr_conf": 0.6024991685838956,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                164,
+                351,
+                461,
+                640
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "304-171980",
+              "ocr_conf": 0.6024991685838956,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                164,
+                351,
+                461,
+                640
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "3041-71980",
+              "ocr_conf": 0.6024991685838956,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                164,
+                351,
+                461,
+                640
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                164,
+                351,
+                461,
+                640
+              ],
+              "det_conf": 0.8984278440475464,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 2034.0915000997484,
+              "texts": {
+                "baseline": [
+                  "304-171980",
+                  0.6024991685838956
+                ],
+                "+ preprocess": [
+                  "304-171980",
+                  0.6024991685838956
+                ],
+                "+ rectify": [
+                  "304-171980",
+                  0.6024991685838956
+                ],
+                "+ rules": [
+                  "3041-71980",
+                  0.6024991685838956
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0651_png.rf.6339e326007b1533fd1129c3f19dac1b.jpg",
+          "gt": "30A-79209",
+          "tags": [
+            "blurry"
+          ],
+          "n_detections": 1,
+          "detect_ms": 177.60460008867085,
+          "full_ms": 894.3235001061112,
+          "predictions": {
+            "baseline": {
+              "text": "BO179209",
+              "ocr_conf": 0.3157448319229066,
+              "cer": 0.375,
+              "exact": false,
+              "bbox": [
+                120,
+                385,
+                400,
+                478
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "304792.097",
+              "ocr_conf": 0.4023893492909506,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                120,
+                385,
+                400,
+                478
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "304792.097",
+              "ocr_conf": 0.4023893492909506,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                120,
+                385,
+                400,
+                478
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "3047-92097",
+              "ocr_conf": 0.4023893492909506,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                120,
+                385,
+                400,
+                478
+              ],
+              "plate_class": 0,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                120,
+                385,
+                400,
+                478
+              ],
+              "det_conf": 0.9094406962394714,
+              "plate_class": 0,
+              "rectified": false,
+              "full_ms": 716.7189000174403,
+              "texts": {
+                "baseline": [
+                  "BO179209",
+                  0.3157448319229066
+                ],
+                "+ preprocess": [
+                  "304792.097",
+                  0.4023893492909506
+                ],
+                "+ rectify": [
+                  "304792.097",
+                  0.4023893492909506
+                ],
+                "+ rules": [
+                  "3047-92097",
+                  0.4023893492909506
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0671_png.rf.9c4a9bfd6258f81fc0bae258eaae28be.jpg",
+          "gt": "30A-96308",
+          "tags": [],
+          "n_detections": 1,
+          "detect_ms": 187.30370001867414,
+          "full_ms": 779.4845001772046,
+          "predictions": {
+            "baseline": {
+              "text": "B01.96308",
+              "ocr_conf": 0.5325078579318272,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                145,
+                366,
+                420,
+                498
+              ],
+              "plate_class": 0,
+              "rectified": true
+            },
+            "+ preprocess": {
+              "text": "302963508",
+              "ocr_conf": 0.5563254263650261,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                145,
+                366,
+                420,
+                498
+              ],
+              "plate_class": 0,
+              "rectified": true
+            },
+            "+ rectify": {
+              "text": "301963.081",
+              "ocr_conf": 0.4746563229055273,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                145,
+                366,
+                420,
+                498
+              ],
+              "plate_class": 0,
+              "rectified": true
+            },
+            "+ rules": {
+              "text": "3019-63081",
+              "ocr_conf": 0.4746563229055273,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                145,
+                366,
+                420,
+                498
+              ],
+              "plate_class": 0,
+              "rectified": true
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                145,
+                366,
+                420,
+                498
+              ],
+              "det_conf": 0.9147894382476807,
+              "plate_class": 0,
+              "rectified": true,
+              "full_ms": 592.1808001585305,
+              "texts": {
+                "baseline": [
+                  "B01.96308",
+                  0.5325078579318272
+                ],
+                "+ preprocess": [
+                  "302963508",
+                  0.5563254263650261
+                ],
+                "+ rectify": [
+                  "301963.081",
+                  0.4746563229055273
+                ],
+                "+ rules": [
+                  "3019-63081",
+                  0.4746563229055273
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0676_png.rf.3c426baeb44425df7bcfe3b3152c67d8.jpg",
+          "gt": "51C-97363",
+          "tags": [],
+          "n_detections": 2,
+          "detect_ms": 157.60759986005723,
+          "full_ms": 4417.707500047982,
+          "predictions": {
+            "baseline": {
+              "text": "610.973.63",
+              "ocr_conf": 0.6143597908905998,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                75,
+                396,
+                496,
+                520
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "61C97363",
+              "ocr_conf": 0.7321577284781569,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                75,
+                396,
+                496,
+                520
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "61C97363",
+              "ocr_conf": 0.7321577284781569,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                75,
+                396,
+                496,
+                520
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "61C-97363",
+              "ocr_conf": 0.7321577284781569,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                75,
+                396,
+                496,
+                520
+              ],
+              "plate_class": 0,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                75,
+                396,
+                496,
+                520
+              ],
+              "det_conf": 0.8893812894821167,
+              "plate_class": 0,
+              "rectified": false,
+              "full_ms": 1319.825700018555,
+              "texts": {
+                "baseline": [
+                  "610.973.63",
+                  0.6143597908905998
+                ],
+                "+ preprocess": [
+                  "61C97363",
+                  0.7321577284781569
+                ],
+                "+ rectify": [
+                  "61C97363",
+                  0.7321577284781569
+                ],
+                "+ rules": [
+                  "61C-97363",
+                  0.7321577284781569
+                ]
+              }
+            },
+            {
+              "bbox": [
+                6,
+                5,
+                394,
+                399
+              ],
+              "det_conf": 0.2566685676574707,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 2940.2742001693696,
+              "texts": {
+                "baseline": [
+                  "N",
+                  0.9302231772164755
+                ],
+                "+ preprocess": [
+                  "N",
+                  0.9302231772164755
+                ],
+                "+ rectify": [
+                  "N",
+                  0.9302231772164755
+                ],
+                "+ rules": [
+                  "N",
+                  0.9302231772164755
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0699_png.rf.a1cabad0882bee43f9cb5ecc0949f6d0.jpg",
+          "gt": "88LD-00757",
+          "tags": [
+            "blurry"
+          ],
+          "n_detections": 1,
+          "detect_ms": 336.6390001028776,
+          "full_ms": 1103.9205000270158,
+          "predictions": {
+            "baseline": {
+              "text": "8BL0-007.57",
+              "ocr_conf": 0.40742023698299606,
+              "cer": 0.2222222222222222,
+              "exact": false,
+              "bbox": [
+                221,
+                430,
+                531,
+                517
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "8BL0-007.57",
+              "ocr_conf": 0.40742023698299606,
+              "cer": 0.2222222222222222,
+              "exact": false,
+              "bbox": [
+                221,
+                430,
+                531,
+                517
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "8BL0-007.57",
+              "ocr_conf": 0.40742023698299606,
+              "cer": 0.2222222222222222,
+              "exact": false,
+              "bbox": [
+                221,
+                430,
+                531,
+                517
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "88L0-00757",
+              "ocr_conf": 0.40742023698299606,
+              "cer": 0.1111111111111111,
+              "exact": false,
+              "bbox": [
+                221,
+                430,
+                531,
+                517
+              ],
+              "plate_class": 0,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                221,
+                430,
+                531,
+                517
+              ],
+              "det_conf": 0.8940380811691284,
+              "plate_class": 0,
+              "rectified": false,
+              "full_ms": 767.2814999241382,
+              "texts": {
+                "baseline": [
+                  "8BL0-007.57",
+                  0.40742023698299606
+                ],
+                "+ preprocess": [
+                  "8BL0-007.57",
+                  0.40742023698299606
+                ],
+                "+ rectify": [
+                  "8BL0-007.57",
+                  0.40742023698299606
+                ],
+                "+ rules": [
+                  "88L0-00757",
+                  0.40742023698299606
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0727_png.rf.6f47e147d7bc4aeb82b929dfd3b571ad.jpg",
+          "gt": "30Z-1040",
+          "tags": [
+            "angled",
+            "lowlight"
+          ],
+          "n_detections": 1,
+          "detect_ms": 138.99110001511872,
+          "full_ms": 1018.9712999854237,
+          "predictions": {
+            "baseline": {
+              "text": "30231040",
+              "ocr_conf": 0.488308234621853,
+              "cer": 0.2857142857142857,
+              "exact": false,
+              "bbox": [
+                167,
+                437,
+                441,
+                564
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "302.1040",
+              "ocr_conf": 0.5704858705550574,
+              "cer": 0.14285714285714285,
+              "exact": false,
+              "bbox": [
+                167,
+                437,
+                441,
+                564
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "302.1040",
+              "ocr_conf": 0.5704858705550574,
+              "cer": 0.14285714285714285,
+              "exact": false,
+              "bbox": [
+                167,
+                437,
+                441,
+                564
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "30Z-1040",
+              "ocr_conf": 0.5704858705550574,
+              "cer": 0.0,
+              "exact": true,
+              "bbox": [
+                167,
+                437,
+                441,
+                564
+              ],
+              "plate_class": 0,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                167,
+                437,
+                441,
+                564
+              ],
+              "det_conf": 0.9107054471969604,
+              "plate_class": 0,
+              "rectified": false,
+              "full_ms": 879.980199970305,
+              "texts": {
+                "baseline": [
+                  "30231040",
+                  0.488308234621853
+                ],
+                "+ preprocess": [
+                  "302.1040",
+                  0.5704858705550574
+                ],
+                "+ rectify": [
+                  "302.1040",
+                  0.5704858705550574
+                ],
+                "+ rules": [
+                  "30Z-1040",
+                  0.5704858705550574
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0728_png.rf.ac802f4b563fcf310e796a6c389758c9.jpg",
+          "gt": "99A-10432",
+          "tags": [
+            "two_line",
+            "blurry"
+          ],
+          "n_detections": 1,
+          "detect_ms": 171.4946001302451,
+          "full_ms": 908.2388002425432,
+          "predictions": {
+            "baseline": {
+              "text": "991-10L32",
+              "ocr_conf": 0.47036075152998325,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                242,
+                386,
+                388,
+                537
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "994-10L321",
+              "ocr_conf": 0.5208732146068511,
+              "cer": 0.375,
+              "exact": false,
+              "bbox": [
+                242,
+                386,
+                388,
+                537
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "994-10L321",
+              "ocr_conf": 0.5208732146068511,
+              "cer": 0.375,
+              "exact": false,
+              "bbox": [
+                242,
+                386,
+                388,
+                537
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "9941-01321",
+              "ocr_conf": 0.5208732146068511,
+              "cer": 0.375,
+              "exact": false,
+              "bbox": [
+                242,
+                386,
+                388,
+                537
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                242,
+                386,
+                388,
+                537
+              ],
+              "det_conf": 0.9294402599334717,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 736.7442001122981,
+              "texts": {
+                "baseline": [
+                  "991-10L32",
+                  0.47036075152998325
+                ],
+                "+ preprocess": [
+                  "994-10L321",
+                  0.5208732146068511
+                ],
+                "+ rectify": [
+                  "994-10L321",
+                  0.5208732146068511
+                ],
+                "+ rules": [
+                  "9941-01321",
+                  0.5208732146068511
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0732_png.rf.1169ae7649e2832c288e72d75aab90e0.jpg",
+          "gt": "89A-10868",
+          "tags": [
+            "two_line"
+          ],
+          "n_detections": 1,
+          "detect_ms": 149.75440013222396,
+          "full_ms": 631.0373002197593,
+          "predictions": {
+            "baseline": {
+              "text": "891-10868",
+              "ocr_conf": 0.47114501303735445,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                300,
+                369,
+                407,
+                492
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "891-10868",
+              "ocr_conf": 0.47114501303735445,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                300,
+                369,
+                407,
+                492
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "891-10868",
+              "ocr_conf": 0.47114501303735445,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                300,
+                369,
+                407,
+                492
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "891-10868",
+              "ocr_conf": 0.47114501303735445,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                300,
+                369,
+                407,
+                492
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                300,
+                369,
+                407,
+                492
+              ],
+              "det_conf": 0.9359959363937378,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 481.2829000875354,
+              "texts": {
+                "baseline": [
+                  "891-10868",
+                  0.47114501303735445
+                ],
+                "+ preprocess": [
+                  "891-10868",
+                  0.47114501303735445
+                ],
+                "+ rectify": [
+                  "891-10868",
+                  0.47114501303735445
+                ],
+                "+ rules": [
+                  "891-10868",
+                  0.47114501303735445
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0746_png.rf.f23c0114587046d38615e13e8d453c7a.jpg",
+          "gt": "89A-20061",
+          "tags": [],
+          "n_detections": 1,
+          "detect_ms": 140.72249992750585,
+          "full_ms": 632.029399741441,
+          "predictions": {
+            "baseline": {
+              "text": "B91200677",
+              "ocr_conf": 0.4636685876198746,
+              "cer": 0.5,
+              "exact": false,
+              "bbox": [
+                151,
+                421,
+                357,
+                501
+              ],
+              "plate_class": 0,
+              "rectified": true
+            },
+            "+ preprocess": {
+              "text": "18912005",
+              "ocr_conf": 0.5356235607576817,
+              "cer": 0.5,
+              "exact": false,
+              "bbox": [
+                151,
+                421,
+                357,
+                501
+              ],
+              "plate_class": 0,
+              "rectified": true
+            },
+            "+ rectify": {
+              "text": "89420061",
+              "ocr_conf": 0.8823796204920071,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                151,
+                421,
+                357,
+                501
+              ],
+              "plate_class": 0,
+              "rectified": true
+            },
+            "+ rules": {
+              "text": "894-20061",
+              "ocr_conf": 0.8823796204920071,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                151,
+                421,
+                357,
+                501
+              ],
+              "plate_class": 0,
+              "rectified": true
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                151,
+                421,
+                357,
+                501
+              ],
+              "det_conf": 0.918937087059021,
+              "plate_class": 0,
+              "rectified": true,
+              "full_ms": 491.30689981393516,
+              "texts": {
+                "baseline": [
+                  "B91200677",
+                  0.4636685876198746
+                ],
+                "+ preprocess": [
+                  "18912005",
+                  0.5356235607576817
+                ],
+                "+ rectify": [
+                  "89420061",
+                  0.8823796204920071
+                ],
+                "+ rules": [
+                  "894-20061",
+                  0.8823796204920071
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0756_png.rf.eff88642facd491f382cb2bf83b25281.jpg",
+          "gt": "30F-25697",
+          "tags": [
+            "two_line",
+            "angled"
+          ],
+          "n_detections": 1,
+          "detect_ms": 175.91569991782308,
+          "full_ms": 1039.0120998490602,
+          "predictions": {
+            "baseline": {
+              "text": "30F-125697",
+              "ocr_conf": 0.6587183727715111,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                270,
+                387,
+                405,
+                534
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "30F-125697",
+              "ocr_conf": 0.6587183727715111,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                270,
+                387,
+                405,
+                534
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "30F-125697",
+              "ocr_conf": 0.6587183727715111,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                270,
+                387,
+                405,
+                534
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "30F1-25697",
+              "ocr_conf": 0.6587183727715111,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                270,
+                387,
+                405,
+                534
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                270,
+                387,
+                405,
+                534
+              ],
+              "det_conf": 0.9255354404449463,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 863.0963999312371,
+              "texts": {
+                "baseline": [
+                  "30F-125697",
+                  0.6587183727715111
+                ],
+                "+ preprocess": [
+                  "30F-125697",
+                  0.6587183727715111
+                ],
+                "+ rectify": [
+                  "30F-125697",
+                  0.6587183727715111
+                ],
+                "+ rules": [
+                  "30F1-25697",
+                  0.6587183727715111
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0761_png.rf.14d0fac205393c8e2aa90893f8db808c.jpg",
+          "gt": "29A-37229",
+          "tags": [
+            "two_line"
+          ],
+          "n_detections": 1,
+          "detect_ms": 400.97699989564717,
+          "full_ms": 1789.1579999122769,
+          "predictions": {
+            "baseline": {
+              "text": "291-172.29",
+              "ocr_conf": 0.6185123821929862,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                237,
+                323,
+                417,
+                516
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "291-172.29",
+              "ocr_conf": 0.6185123821929862,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                237,
+                323,
+                417,
+                516
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "291-172.29",
+              "ocr_conf": 0.6185123821929862,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                237,
+                323,
+                417,
+                516
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "291-17229",
+              "ocr_conf": 0.6185123821929862,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                237,
+                323,
+                417,
+                516
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                237,
+                323,
+                417,
+                516
+              ],
+              "det_conf": 0.924719512462616,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 1388.1810000166297,
+              "texts": {
+                "baseline": [
+                  "291-172.29",
+                  0.6185123821929862
+                ],
+                "+ preprocess": [
+                  "291-172.29",
+                  0.6185123821929862
+                ],
+                "+ rectify": [
+                  "291-172.29",
+                  0.6185123821929862
+                ],
+                "+ rules": [
+                  "291-17229",
+                  0.6185123821929862
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0762_png.rf.4316711e7d8c8e2d55c7010e1d380cd8.jpg",
+          "gt": "88A-30598",
+          "tags": [],
+          "n_detections": 1,
+          "detect_ms": 247.21189984120429,
+          "full_ms": 1046.552499756217,
+          "predictions": {
+            "baseline": {
+              "text": "I89430598",
+              "ocr_conf": 0.1735802065625684,
+              "cer": 0.375,
+              "exact": false,
+              "bbox": [
+                185,
+                284,
+                454,
+                395
+              ],
+              "plate_class": 0,
+              "rectified": true
+            },
+            "+ preprocess": {
+              "text": "BBH305.98",
+              "ocr_conf": 0.7079353096187335,
+              "cer": 0.375,
+              "exact": false,
+              "bbox": [
+                185,
+                284,
+                454,
+                395
+              ],
+              "plate_class": 0,
+              "rectified": true
+            },
+            "+ rectify": {
+              "text": "884305.98",
+              "ocr_conf": 0.40333520569951586,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                185,
+                284,
+                454,
+                395
+              ],
+              "plate_class": 0,
+              "rectified": true
+            },
+            "+ rules": {
+              "text": "884-30598",
+              "ocr_conf": 0.40333520569951586,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                185,
+                284,
+                454,
+                395
+              ],
+              "plate_class": 0,
+              "rectified": true
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                185,
+                284,
+                454,
+                395
+              ],
+              "det_conf": 0.9179965257644653,
+              "plate_class": 0,
+              "rectified": true,
+              "full_ms": 799.3405999150127,
+              "texts": {
+                "baseline": [
+                  "I89430598",
+                  0.1735802065625684
+                ],
+                "+ preprocess": [
+                  "BBH305.98",
+                  0.7079353096187335
+                ],
+                "+ rectify": [
+                  "884305.98",
+                  0.40333520569951586
+                ],
+                "+ rules": [
+                  "884-30598",
+                  0.40333520569951586
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0767_png.rf.7a39a2b605b837defb5e65e6f8038cec.jpg",
+          "gt": "30F-32245",
+          "tags": [
+            "angled"
+          ],
+          "n_detections": 1,
+          "detect_ms": 212.31640013866127,
+          "full_ms": 693.3814000803977,
+          "predictions": {
+            "baseline": {
+              "text": "B0F.3224",
+              "ocr_conf": 0.7521185406216556,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                177,
+                478,
+                349,
+                564
+              ],
+              "plate_class": 0,
+              "rectified": true
+            },
+            "+ preprocess": {
+              "text": "B0F.3224",
+              "ocr_conf": 0.7521185406216556,
+              "cer": 0.25,
+              "exact": false,
+              "bbox": [
+                177,
+                478,
+                349,
+                564
+              ],
+              "plate_class": 0,
+              "rectified": true
+            },
+            "+ rectify": {
+              "text": "R0F32245",
+              "ocr_conf": 0.23536178545836667,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                177,
+                478,
+                349,
+                564
+              ],
+              "plate_class": 0,
+              "rectified": true
+            },
+            "+ rules": {
+              "text": "R0F-32245",
+              "ocr_conf": 0.23536178545836667,
+              "cer": 0.125,
+              "exact": false,
+              "bbox": [
+                177,
+                478,
+                349,
+                564
+              ],
+              "plate_class": 0,
+              "rectified": true
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                177,
+                478,
+                349,
+                564
+              ],
+              "det_conf": 0.9074367880821228,
+              "plate_class": 0,
+              "rectified": true,
+              "full_ms": 481.06499994173646,
+              "texts": {
+                "baseline": [
+                  "B0F.3224",
+                  0.7521185406216556
+                ],
+                "+ preprocess": [
+                  "B0F.3224",
+                  0.7521185406216556
+                ],
+                "+ rectify": [
+                  "R0F32245",
+                  0.23536178545836667
+                ],
+                "+ rules": [
+                  "R0F-32245",
+                  0.23536178545836667
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/Tgmt_0827_png.rf.b074c239dda92c1bb07c14d11595ebdd.jpg",
+          "gt": "30G-53279",
+          "tags": [
+            "angled"
+          ],
+          "n_detections": 1,
+          "detect_ms": 265.65459999255836,
+          "full_ms": 2396.198800066486,
+          "predictions": {
+            "baseline": {
+              "text": "5220-J9",
+              "ocr_conf": 0.6883825630649884,
+              "cer": 0.75,
+              "exact": false,
+              "bbox": [
+                226,
+                276,
+                341,
+                449
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "5220-28",
+              "ocr_conf": 0.9018108823582568,
+              "cer": 0.875,
+              "exact": false,
+              "bbox": [
+                226,
+                276,
+                341,
+                449
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "5220-28",
+              "ocr_conf": 0.9018108823582568,
+              "cer": 0.875,
+              "exact": false,
+              "bbox": [
+                226,
+                276,
+                341,
+                449
+              ],
+              "plate_class": 1,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "522028",
+              "ocr_conf": 0.9018108823582568,
+              "cer": 0.875,
+              "exact": false,
+              "bbox": [
+                226,
+                276,
+                341,
+                449
+              ],
+              "plate_class": 1,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                226,
+                276,
+                341,
+                449
+              ],
+              "det_conf": 0.9025650024414062,
+              "plate_class": 1,
+              "rectified": false,
+              "full_ms": 2130.5442000739276,
+              "texts": {
+                "baseline": [
+                  "5220-J9",
+                  0.6883825630649884
+                ],
+                "+ preprocess": [
+                  "5220-28",
+                  0.9018108823582568
+                ],
+                "+ rectify": [
+                  "5220-28",
+                  0.9018108823582568
+                ],
+                "+ rules": [
+                  "522028",
+                  0.9018108823582568
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "image_path": "data/manual_test/images/xebuyt-4052.jpg.jpg",
+          "gt": "51B-07242",
+          "tags": [
+            "small",
+            "blurry"
+          ],
+          "n_detections": 1,
+          "detect_ms": 362.8803000319749,
+          "full_ms": 946.4960999321193,
+          "predictions": {
+            "baseline": {
+              "text": "G007LZ",
+              "ocr_conf": 0.20157423072727151,
+              "cer": 0.75,
+              "exact": false,
+              "bbox": [
+                193,
+                257,
+                241,
+                275
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ preprocess": {
+              "text": "61802222",
+              "ocr_conf": 0.8236146149181388,
+              "cer": 0.5,
+              "exact": false,
+              "bbox": [
+                193,
+                257,
+                241,
+                275
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rectify": {
+              "text": "61802222",
+              "ocr_conf": 0.8236146149181388,
+              "cer": 0.5,
+              "exact": false,
+              "bbox": [
+                193,
+                257,
+                241,
+                275
+              ],
+              "plate_class": 0,
+              "rectified": false
+            },
+            "+ rules": {
+              "text": "61B-02222",
+              "ocr_conf": 0.8236146149181388,
+              "cer": 0.375,
+              "exact": false,
+              "bbox": [
+                193,
+                257,
+                241,
+                275
+              ],
+              "plate_class": 0,
+              "rectified": false
+            }
+          },
+          "plates": [
+            {
+              "bbox": [
+                193,
+                257,
+                241,
+                275
+              ],
+              "det_conf": 0.8656695485115051,
+              "plate_class": 0,
+              "rectified": false,
+              "full_ms": 583.6157999001443,
+              "texts": {
+                "baseline": [
+                  "G007LZ",
+                  0.20157423072727151
+                ],
+                "+ preprocess": [
+                  "61802222",
+                  0.8236146149181388
+                ],
+                "+ rectify": [
+                  "61802222",
+                  0.8236146149181388
+                ],
+                "+ rules": [
+                  "61B-02222",
+                  0.8236146149181388
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

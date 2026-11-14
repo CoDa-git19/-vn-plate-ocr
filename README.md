@@ -55,7 +55,9 @@ python scripts/prepare_data.py datasets/a datasets/b --out datasets/merged
 python scripts/train.py --data datasets/plates/data.yaml --epochs 50 --wandb --export-onnx
 
 # 3. Evaluate (ablation + slices)
-python -m src.evaluate --gt datasets/test_gt.csv --ablation --slices
+python scripts/label_tool.py                     # label data/manual_test/images -> data/manual_test.csv
+python -m src.evaluate --weights models/best.pt --csv data/manual_test.csv
+python -m src.evaluate --compare models/best_yolov8n.pt models/best_yolov8s.pt
 
 # 4. Benchmark
 python scripts/benchmark.py --images datasets/plates/images/test \
