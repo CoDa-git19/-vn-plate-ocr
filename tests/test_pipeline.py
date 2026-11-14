@@ -393,9 +393,10 @@ def test_draw_results_colors() -> None:
     assert draw_results(img, []).shape == img.shape
 
 
-# --- integration (needs weights) -------------------------------------------
+# --- integration (needs weights + ultralytics; skipped in CI) ---------------
 @pytest.mark.skipif(not Path("models/best.pt").is_file(), reason="requires trained weights in models/best.pt")
 def test_pipeline_end_to_end() -> None:
+    pytest.importorskip("ultralytics", reason="ultralytics not installed (CI installs light deps only)")
     results = PlateOCRPipeline("models/best.pt").process(np.zeros((480, 640, 3), dtype=np.uint8))
     assert results == []
 

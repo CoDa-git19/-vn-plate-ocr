@@ -293,7 +293,7 @@ def merge_datasets(paths: list[Path], out_dir: Path, overwrite: bool = False, ma
     rows: list[dict[str, str]] = []
     per_ds: list[tuple[int, Counter]] = []
 
-    for di, (ds, remap) in enumerate(zip(datasets, remaps)):
+    for di, (ds, remap) in enumerate(zip(datasets, remaps, strict=True)):
         kept: Counter = Counter()
         n_in = 0
         for split in SPLITS:
@@ -350,7 +350,7 @@ def merge_datasets(paths: list[Path], out_dir: Path, overwrite: bool = False, ma
 
     # ---- report ----
     print("\n=== Merge ===")
-    for di, (ds, (n_in, kept)) in enumerate(zip(datasets, per_ds)):
+    for di, (ds, (n_in, kept)) in enumerate(zip(datasets, per_ds, strict=True)):
         kept_str = " ".join(f"{s}={kept[s]}" for s in SPLITS if kept[s])
         print(f"  ds{di}: {ds.root}")
         print(f"        names={ds.names}  images in={n_in}  kept: {kept_str or '0'}")
@@ -455,7 +455,7 @@ def print_summary(ds: YoloDataset, scans: dict[str, SplitScan]) -> None:
     tot = Counter()
     for split, s in scans.items():
         vals = (len(s.images), s.n_labeled, s.n_background, s.n_missing, s.n_boxes)
-        tot.update(dict(zip(("i", "l", "e", "m", "b"), vals)))
+        tot.update(dict(zip(("i", "l", "e", "m", "b"), vals, strict=True)))
         print(f"  {split:<6}" + "".join(f"{v:>9}" for v in vals))
     print(f"  {'total':<6}" + "".join(f"{tot[k]:>9}" for k in ("i", "l", "e", "m", "b")))
 
@@ -500,7 +500,7 @@ def plot_sample_grid(scan: SplitScan, names: list[str], out_path: Path, n: int =
     for ax in np.ravel(axes):
         ax.axis("off")
 
-    for ax, img_path in zip(np.ravel(axes), picks):
+    for ax, img_path in zip(np.ravel(axes), picks, strict=False):  # grid may have more cells than picks
         img = imread_any(img_path)
         if img is None:
             ax.set_title(f"unreadable: {img_path.name[:28]}", fontsize=8, color="red")

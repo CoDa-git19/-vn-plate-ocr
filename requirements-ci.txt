@@ -1,0 +1,10 @@
+# Minimal dependencies for CI: lint + unit tests only.
+# The tests use fake detectors / OCR readers, so torch, ultralytics and easyocr are NOT needed
+# (src/ imports them lazily, only when real models are loaded).
+numpy==1.26.4
+opencv-python-headless>=4.10.0.84
+matplotlib>=3.9.2      # failure-case figure test
+tqdm>=4.67.1
+python-Levenshtein>=0.26.1
+pytest==8.3.3
+ruff==0.17.5
